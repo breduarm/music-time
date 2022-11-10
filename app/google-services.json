@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "936558882735",
+    "project_id": "musictime-e0031",
+    "storage_bucket": "musictime-e0031.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936558882735:android:79f1d63402304fb364495a",
+        "android_client_info": {
+          "package_name": "com.example.musictime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936558882735-tq4imd3fpvh7cs6aiq9ik9njr48q4qrp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcU2wFXCK410zF6pbVfOUSCDvgQdItblQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936558882735-tq4imd3fpvh7cs6aiq9ik9njr48q4qrp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
