@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "936558882735",
+    "project_id": "musictime-e0031",
+    "storage_bucket": "musictime-e0031.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936558882735:android:ffb3711d6db765aa64495a",
+        "android_client_info": {
+          "package_name": "com.davidorellana.googleauthfirebasecompose"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936558882735-isui608q7eh2hcrlkjbnojmcitc7jna7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.davidorellana.googleauthfirebasecompose",
+            "certificate_hash": "d122b241a8a79b7acdb3c0cbf80c79e0bef24442"
+          }
+        },
+        {
+          "client_id": "936558882735-tq4imd3fpvh7cs6aiq9ik9njr48q4qrp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcU2wFXCK410zF6pbVfOUSCDvgQdItblQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936558882735-tq4imd3fpvh7cs6aiq9ik9njr48q4qrp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936558882735:android:79f1d63402304fb364495a",
+        "android_client_info": {
+          "package_name": "com.example.musictime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936558882735-tq4imd3fpvh7cs6aiq9ik9njr48q4qrp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcU2wFXCK410zF6pbVfOUSCDvgQdItblQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936558882735-tq4imd3fpvh7cs6aiq9ik9njr48q4qrp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
