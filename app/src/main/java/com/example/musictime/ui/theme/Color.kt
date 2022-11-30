@@ -16,3 +16,4 @@ val Colors.descriptionColor get() = if(isLight) DarkGray.copy(alpha = 0.5f) else
 val Colors.activateIndicatorColor get() = if(isLight) Purple500 else Purple700
 val Colors.inactivateIndicatorColor get() = if(isLight) LightGray else DarkGray
 val Colors.buttonBackgroundColor get() = if(isLight) Purple500 else Purple700
+val Colors.topAppBarContentColor: Color get() = if (isLight) Color.White else LightGray
