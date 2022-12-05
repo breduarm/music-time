@@ -1,11 +1,13 @@
 package com.example.musictime.navigation.navgraph
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.musictime.navigation.BottomBarScreen
 
+@ExperimentalComposeUiApi
 @Composable
 fun BottomNavGraph(navController: NavHostController, rootNavController: NavHostController) {
     NavHost(
