@@ -1,4 +1,4 @@
-package com.example.musictime.presentation.screen.music_player
+package com.example.musictime.presentation.screens.music_player
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
