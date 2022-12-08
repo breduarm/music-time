@@ -8,8 +8,10 @@ import androidx.navigation.compose.rememberNavController
 import com.example.musictime.navigation.navgraph.RootNavGraph
 import com.example.musictime.ui.theme.MusictimeTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
+import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalPagerApi
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private lateinit var rootNavController: NavHostController
