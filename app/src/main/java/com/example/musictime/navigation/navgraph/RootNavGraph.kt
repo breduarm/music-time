@@ -1,12 +1,15 @@
 package com.example.musictime.navigation.navgraph
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.musictime.presentation.screens.bottombar.BottomBarScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalPagerApi
+@ExperimentalComposeUiApi
 @Composable
 fun RootNavGraph(
     rootNavController: NavHostController,
@@ -20,7 +23,9 @@ fun RootNavGraph(
         welcomeNavGraph(rootNavController = rootNavController)
         authNavGraph(rootNavController = rootNavController)
         composable(route = Graph.BOTTOM) {
-            //TODO BottomBar Screen
+            BottomBarScreen(
+                rootNavController = rootNavController
+            )
         }
     }
 }
