@@ -41,3 +41,9 @@ sealed class BottomBarScreen(
         icon = Icons.Default.Settings
     )
 }
+
+val bottomScreens = listOf(
+    BottomBarScreen.Home,
+    BottomBarScreen.Search,
+    BottomBarScreen.Favourites
+)
