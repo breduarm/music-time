@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.musictime.navigation.Screen
-import com.example.musictime.presentation.screen.music_player.MusicPlayerScreen
+import com.example.musictime.presentation.screens.music_player.MusicPlayerScreen
 
 @ExperimentalComposeUiApi
 fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {

@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.musictime.navigation.Screen
+import com.example.musictime.presentation.screens.login.LoginScreen
 
 fun NavGraphBuilder.authNavGraph(rootNavController: NavHostController) {
     navigation(
@@ -12,7 +13,7 @@ fun NavGraphBuilder.authNavGraph(rootNavController: NavHostController) {
         startDestination = Screen.Login.route
     ) {
         composable(route = Screen.Login.route) {
-            //TODO Login Screen
+            LoginScreen(rootNavController)
         }
     }
 }

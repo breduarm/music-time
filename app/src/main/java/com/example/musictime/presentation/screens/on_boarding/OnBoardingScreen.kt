@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.musictime.R
@@ -28,7 +29,8 @@ import com.google.accompanist.pager.*
 @ExperimentalPagerApi
 @Composable
 fun OnBoardingScreen(
-    rootNavController: NavHostController
+    rootNavController: NavHostController,
+    onBoardingScreenViewModel: OnBoardingScreenViewModel = hiltViewModel()
 ) {
     val pages = listOf(
         OnBoardingPage.First,
@@ -66,6 +68,7 @@ fun OnBoardingScreen(
         ) {
             rootNavController.popBackStack()
             rootNavController.navigate(Graph.AUTH)
+            onBoardingScreenViewModel.saveOnBoardingPageState(true)
         }
     }
 }
@@ -144,5 +147,7 @@ fun FinishButton(
 @Composable
 @Preview(showBackground = true)
 fun SecondOnBoardingScreenPreview() {
-    OnBoardingScreen(rootNavController = rememberNavController())
+    OnBoardingScreen(
+        rootNavController = rememberNavController()
+    )
 }

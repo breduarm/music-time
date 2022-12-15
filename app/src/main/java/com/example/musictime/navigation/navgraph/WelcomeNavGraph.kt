@@ -14,9 +14,6 @@ fun NavGraphBuilder.welcomeNavGraph(rootNavController: NavHostController) {
         route = Graph.WELCOME,
         startDestination = Screen.OnBoarding.route
     ) {
-        composable(route = Screen.Splash.route) {
-            //TODO splash screen
-        }
         composable(route = Screen.OnBoarding.route) {
             OnBoardingScreen(rootNavController = rootNavController)
         }
