@@ -14,7 +14,7 @@ class OnBoardingScreenViewModel @Inject constructor(
 ): ViewModel() {
     fun saveOnBoardingPageState(completed: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            useCases.saveOnBoardingPageUseCase(completed)
+            useCases.saveOnBoardingPageUseCase(completed = completed)
         }
     }
 }

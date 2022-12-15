@@ -8,11 +8,14 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalPagerApi
 @Composable
-fun RootNavGraph(rootNavController: NavHostController) {
+fun RootNavGraph(
+    rootNavController: NavHostController,
+    startDestination: String
+) {
     NavHost(
         navController = rootNavController,
         route = Graph.ROOT,
-        startDestination = Graph.WELCOME
+        startDestination = startDestination
     ) {
         welcomeNavGraph(rootNavController = rootNavController)
         authNavGraph(rootNavController = rootNavController)
