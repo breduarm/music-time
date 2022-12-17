@@ -95,8 +95,8 @@ fun MusicPlayerContent(
                     .data(musicImage)
                     .crossfade(1000)
                     .build(),
-                placeholder = painterResource(id = R.drawable.ic_placeholder),
-                error = painterResource(id = R.drawable.ic_placeholder),
+                placeholder = painterResource(id = R.drawable.ic_circular_placeholder),
+                error = painterResource(id = R.drawable.ic_circular_placeholder),
                 contentScale = ContentScale.Crop,
                 contentDescription = "Image of the Song",
             )
