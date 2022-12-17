@@ -30,7 +30,7 @@ import com.google.accompanist.pager.*
 @Composable
 fun OnBoardingScreen(
     rootNavController: NavHostController,
-    onBoardingScreenViewModel: OnBoardingScreenViewModel = hiltViewModel()
+    onBoardingViewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     val pages = listOf(
         OnBoardingPage.First,
@@ -68,7 +68,7 @@ fun OnBoardingScreen(
         ) {
             rootNavController.popBackStack()
             rootNavController.navigate(Graph.AUTH)
-            onBoardingScreenViewModel.saveOnBoardingPageState(true)
+            onBoardingViewModel.saveOnBoardingPageState(true)
         }
     }
 }

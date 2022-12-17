@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OnBoardingScreenViewModel @Inject constructor(
+class OnBoardingViewModel @Inject constructor(
     private val useCases: UseCases
 ): ViewModel() {
     fun saveOnBoardingPageState(completed: Boolean) {
