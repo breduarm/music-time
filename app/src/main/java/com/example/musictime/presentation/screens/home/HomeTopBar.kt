@@ -20,7 +20,8 @@ import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun HomeTopBar(
-    navController: NavController
+    navController: NavController,
+    onProfileClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -37,16 +38,16 @@ fun HomeTopBar(
                 )
             },
             actions = {
-                HomeTopBarActions()
+                HomeTopBarActions(onProfileClick)
             }
         )
     }
 }
 @Composable
-fun HomeTopBarActions() {
+fun HomeTopBarActions(onProfileClick: () -> Unit) {
     NotificationsAction()
     ShareAction()
-    ProfileAction()
+    ProfileAction(onProfileClick)
 }
 
 @Composable
@@ -74,9 +75,9 @@ fun ShareAction() {
 }
 
 @Composable
-fun ProfileAction() {
+fun ProfileAction(onProfileClick: () -> Unit) {
     IconButton(
-        onClick = { /*TODO profile icon action*/ }
+        onClick = { onProfileClick() }
     ) {
         Icon(
             imageVector = Icons.Default.AccountCircle,
@@ -88,5 +89,5 @@ fun ProfileAction() {
 @Preview
 @Composable
 fun HomeTopBarPreview() {
-    HomeTopBar(navController = rememberNavController())
+    HomeTopBar(navController = rememberNavController()) {}
 }
