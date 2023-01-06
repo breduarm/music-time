@@ -1,9 +1,9 @@
 package com.example.musictime.presentation.screens.home
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,81 +16,89 @@ import com.example.musictime.component.TrackItem
 
 @Composable
 fun HomeContent(
-    navController: NavHostController
+    navController: NavHostController,
+    paddingValues: PaddingValues
 ) {
-    Text(
+    Column(
         modifier = Modifier
-            .padding(vertical = 12.dp)
-            .padding(start = 12.dp),
-        text = "Top 10 World",
-        fontWeight = FontWeight.Bold
-    )
-    LazyRow(
-        contentPadding = PaddingValues(horizontal = 12.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+            .fillMaxSize()
+            .padding(paddingValues)
+            .verticalScroll(rememberScrollState())
     ) {
-        items(10) {
-            TrackItem()
+        Text(
+            modifier = Modifier
+                .padding(vertical = 12.dp)
+                .padding(start = 12.dp),
+            text = "Top 10 World",
+            fontWeight = FontWeight.Bold
+        )
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(10) {
+                TrackItem()
+            }
         }
-    }
-    Text(
-        modifier = Modifier
-            .padding(vertical = 12.dp)
-            .padding(start = 12.dp),
-        text = "Top 10 in your country",
-        fontWeight = FontWeight.Bold
-    )
-    LazyRow(
-        contentPadding = PaddingValues(horizontal = 12.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(10) {
-            TrackItem()
+        Text(
+            modifier = Modifier
+                .padding(vertical = 12.dp)
+                .padding(start = 12.dp),
+            text = "Top 10 in your country",
+            fontWeight = FontWeight.Bold
+        )
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(10) {
+                TrackItem()
+            }
         }
-    }
-    Text(
-        modifier = Modifier
-            .padding(vertical = 12.dp)
-            .padding(start = 12.dp),
-        text = "Rock",
-        fontWeight = FontWeight.Bold
-    )
-    LazyRow(
-        contentPadding = PaddingValues(horizontal = 12.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(10) {
-            TrackItem()
+        Text(
+            modifier = Modifier
+                .padding(vertical = 12.dp)
+                .padding(start = 12.dp),
+            text = "Rock",
+            fontWeight = FontWeight.Bold
+        )
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(10) {
+                TrackItem()
+            }
         }
-    }
-    Text(
-        modifier = Modifier
-            .padding(vertical = 12.dp)
-            .padding(start = 12.dp),
-        text = "Pop",
-        fontWeight = FontWeight.Bold
-    )
-    LazyRow(
-        contentPadding = PaddingValues(horizontal = 12.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(10) {
-            TrackItem()
+        Text(
+            modifier = Modifier
+                .padding(vertical = 12.dp)
+                .padding(start = 12.dp),
+            text = "Pop",
+            fontWeight = FontWeight.Bold
+        )
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(10) {
+                TrackItem()
+            }
         }
-    }
-    Text(
-        modifier = Modifier
-            .padding(vertical = 12.dp)
-            .padding(start = 12.dp),
-        text = "Latin",
-        fontWeight = FontWeight.Bold
-    )
-    LazyRow(
-        contentPadding = PaddingValues(horizontal = 12.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(10) {
-            TrackItem()
+        Text(
+            modifier = Modifier
+                .padding(vertical = 12.dp)
+                .padding(start = 12.dp),
+            text = "Latin",
+            fontWeight = FontWeight.Bold
+        )
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(10) {
+                TrackItem()
+            }
         }
     }
 
@@ -99,5 +107,5 @@ fun HomeContent(
 @Preview(showSystemUi = true)
 @Composable
 fun HomeContentPreview() {
-    HomeContent(navController = rememberNavController())
+    HomeContent(navController = rememberNavController(), paddingValues = PaddingValues())
 }
