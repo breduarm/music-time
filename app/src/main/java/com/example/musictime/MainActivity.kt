@@ -3,41 +3,41 @@ package com.example.musictime
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.musictime.navigation.navgraph.RootNavGraph
+import com.example.musictime.presentation.screens.splash.SplashViewModel
 import com.example.musictime.ui.theme.MusictimeTheme
+import com.google.accompanist.pager.ExperimentalPagerApi
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@ExperimentalComposeUiApi
+@ExperimentalPagerApi
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var splashViewModel: SplashViewModel
+    private lateinit var rootNavController: NavHostController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen().setKeepOnScreenCondition {
+            !splashViewModel.isLoading
+        }
+
         setContent {
             MusictimeTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                }
+                val startDestination = splashViewModel.startDestination
+                rootNavController = rememberNavController()
+                RootNavGraph(
+                    rootNavController = rootNavController,
+                    startDestination = startDestination
+                )
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MusictimeTheme {
-        Greeting("Android")
     }
 }
