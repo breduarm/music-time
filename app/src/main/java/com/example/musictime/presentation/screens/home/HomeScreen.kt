@@ -36,8 +36,10 @@ fun HomeScreen(
     val coroutineScope = rememberCoroutineScope()
     Scaffold(
         modifier = Modifier
+            .padding(top = 40.dp)
             .fillMaxSize()
             .padding(paddingValues),
+
         scaffoldState = scaffoldState,
         topBar = {
             HomeTopBar(

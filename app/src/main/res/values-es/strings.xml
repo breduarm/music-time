@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Music-time</string>
     <string name="on_boarding_image">OnBoarding Image</string>
-    <string name="screen_Home">Home</string>
+    <string name="screen_Home">Inicio</string>
     <string name="login_screen">LOGIN SCREEN</string>
 </resources>
