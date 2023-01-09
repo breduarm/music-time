@@ -2,8 +2,10 @@
 <resources>
     <color name="transparent">#00000000</color>
 
-    <!-- Primary-->
-    <color name="colorPrimary">#FFFDE8EB</color>
+    <!-- Base Colors -->
+    <color name="colorPrimary">#FF222838</color>
+    <color name="colorSecondary">#FFFED0D2</color>
+    <color name="colorTernary">#FFC8F0D6</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

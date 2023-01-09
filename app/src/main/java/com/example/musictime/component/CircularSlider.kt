@@ -16,7 +16,7 @@ import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.musictime.ui.theme.Purple700
+import com.example.musictime.ui.theme.colorSecondary
 import kotlin.math.*
 
 @ExperimentalComposeUiApi
@@ -27,8 +27,8 @@ fun CircularSlider(
     stroke: Float = 15f,
     cap: StrokeCap = StrokeCap.Round,
     touchStroke: Float = 30f,
-    thumbColor: Color = Purple700,
-    progressColor: Color = Purple700,
+    thumbColor: Color = colorSecondary,
+    progressColor: Color = colorSecondary,
     backgroundColor: Color = Color.LightGray,
     onChange: ((Float)->Unit)? = null
 ){

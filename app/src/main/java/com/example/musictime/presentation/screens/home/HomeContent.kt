@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.musictime.component.TrackItem
+import com.example.musictime.ui.theme.colorSecondary
 import com.example.musictime.ui.theme.onBoardingScreenBackgroundColor
 
 @Composable
@@ -30,6 +31,7 @@ fun HomeContent(
             .background(MaterialTheme.colors.onBoardingScreenBackgroundColor)
     ) {
         Text(
+            color = colorSecondary,
             modifier = Modifier
                 .padding(vertical = 12.dp)
                 .padding(start = 12.dp),
@@ -45,6 +47,7 @@ fun HomeContent(
             }
         }
         Text(
+            color = colorSecondary,
             modifier = Modifier
                 .padding(vertical = 12.dp)
                 .padding(start = 12.dp),
@@ -60,6 +63,7 @@ fun HomeContent(
             }
         }
         Text(
+            color = colorSecondary,
             modifier = Modifier
                 .padding(vertical = 12.dp)
                 .padding(start = 12.dp),
@@ -75,6 +79,7 @@ fun HomeContent(
             }
         }
         Text(
+            color = colorSecondary,
             modifier = Modifier
                 .padding(vertical = 12.dp)
                 .padding(start = 12.dp),
@@ -90,6 +95,7 @@ fun HomeContent(
             }
         }
         Text(
+            color = colorSecondary,
             modifier = Modifier
                 .padding(vertical = 12.dp)
                 .padding(start = 12.dp),

@@ -24,6 +24,10 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.musictime.R
 import com.example.musictime.navigation.NavigationDrawerItem
+import com.example.musictime.ui.theme.colorPrimary
+import com.example.musictime.ui.theme.colorSecondary
+import com.example.musictime.ui.theme.colorTernary
+import com.example.musictime.ui.theme.onBoardingScreenBackgroundColor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -36,7 +40,6 @@ fun HomeScreen(
     val coroutineScope = rememberCoroutineScope()
     Scaffold(
         modifier = Modifier
-            .padding(top = 40.dp)
             .fillMaxSize()
             .padding(paddingValues),
 
@@ -65,7 +68,7 @@ fun HomeScreen(
 
 @Composable
 fun Drawer(
-    gradientColors: List<Color> = listOf(Color(0xFFF70A74), Color(0xFFF59118)),
+    gradientColors: List<Color> = listOf(colorPrimary, colorSecondary),
     onClick: () -> Unit
 ) {
     val navigationDrawerItems = listOf(

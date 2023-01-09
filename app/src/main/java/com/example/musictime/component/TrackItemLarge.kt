@@ -18,13 +18,14 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.musictime.R
+import com.example.musictime.ui.theme.onBoardingScreenBackgroundColor
 
 @Composable
 fun TrackItemLarge() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.Transparent),
+            .background(MaterialTheme.colors.onBoardingScreenBackgroundColor),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

@@ -137,7 +137,9 @@ fun FinishButton(
                     contentColor = Color.White
                 )
             ) {
-                Text(text = "Finish")
+                Text(
+                    color = colorPrimary,
+                    text = "Finish")
             }
         }
     }

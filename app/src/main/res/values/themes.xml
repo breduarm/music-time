@@ -2,18 +2,13 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.Musictime" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/transparent</item>
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
 
     </style>
 
     <style name="Theme.CustomSplashScreen" parent="Theme.SplashScreen">
-        <!-- default -->
-        <!-- <item name="windowSplashScreenBackground">@color/white</item> -->
-        <!-- theme 1 -->
         <item name="windowSplashScreenBackground">@color/colorPrimary</item>
-        <!-- theme 2 -->
-
         <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
         <item name="windowSplashScreenAnimationDuration">300</item>
         <item name="postSplashScreenTheme">@style/Theme.Musictime</item>
