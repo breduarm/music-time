@@ -5,7 +5,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.graphics.Color.Companion.White
-import com.example.musictime.R
 
 val colorPrimary = Color(0xFF222838)
 val colorSecondary = Color(0xFFFED0D2)
