@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.musictime.ui.theme.colorPrimary
 
 @Composable
 fun SearchTopBar() {
@@ -19,7 +20,7 @@ fun SearchTopBar() {
             .fillMaxWidth()
     ) {
         TopAppBar(
-            backgroundColor = Color.Transparent,
+            backgroundColor = colorPrimary,
             elevation = 0.dp,
             title = {
                 Text(

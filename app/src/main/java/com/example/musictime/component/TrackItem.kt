@@ -13,6 +13,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.musictime.R
+import com.example.musictime.ui.theme.colorSecondary
+import com.example.musictime.ui.theme.colorTernary
 
 @Composable
 fun TrackItem() {
@@ -35,6 +37,7 @@ fun TrackItem() {
             contentDescription = "Image of the track"
         )
         Text(
+            color = colorTernary,
             text = "The Adults Are Talking",
             maxLines = 2,
             overflow = TextOverflow.Ellipsis

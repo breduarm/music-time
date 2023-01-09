@@ -1,9 +1,11 @@
 package com.example.musictime.presentation.screens.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,6 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.musictime.component.TrackItem
+import com.example.musictime.ui.theme.colorSecondary
+import com.example.musictime.ui.theme.onBoardingScreenBackgroundColor
 
 @Composable
 fun HomeContent(
@@ -24,8 +28,10 @@ fun HomeContent(
             .fillMaxSize()
             .padding(paddingValues)
             .verticalScroll(rememberScrollState())
+            .background(MaterialTheme.colors.onBoardingScreenBackgroundColor)
     ) {
         Text(
+            color = colorSecondary,
             modifier = Modifier
                 .padding(vertical = 12.dp)
                 .padding(start = 12.dp),
@@ -41,6 +47,7 @@ fun HomeContent(
             }
         }
         Text(
+            color = colorSecondary,
             modifier = Modifier
                 .padding(vertical = 12.dp)
                 .padding(start = 12.dp),
@@ -56,6 +63,7 @@ fun HomeContent(
             }
         }
         Text(
+            color = colorSecondary,
             modifier = Modifier
                 .padding(vertical = 12.dp)
                 .padding(start = 12.dp),
@@ -71,6 +79,7 @@ fun HomeContent(
             }
         }
         Text(
+            color = colorSecondary,
             modifier = Modifier
                 .padding(vertical = 12.dp)
                 .padding(start = 12.dp),
@@ -86,6 +95,7 @@ fun HomeContent(
             }
         }
         Text(
+            color = colorSecondary,
             modifier = Modifier
                 .padding(vertical = 12.dp)
                 .padding(start = 12.dp),

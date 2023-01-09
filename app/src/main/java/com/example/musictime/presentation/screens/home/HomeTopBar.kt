@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.musictime.ui.theme.colorPrimary
 
 @Composable
 fun HomeTopBar(
@@ -29,10 +30,11 @@ fun HomeTopBar(
             .fillMaxWidth()
     ) {
         TopAppBar(
-            backgroundColor = Color.Transparent,
+            backgroundColor = colorPrimary,
             elevation = 0.dp,
             title = {
                 Text(
+                    color = Color.White,
                     text = "Welcome!",
                     fontWeight = FontWeight.Bold
                 )
@@ -56,6 +58,7 @@ fun NotificationsAction() {
         onClick = { /*TODO notification icon action*/ }
     ) {
         Icon(
+            tint = Color.White,
             imageVector = Icons.Default.Notifications,
             contentDescription = "Notifications Icon"
         )
@@ -68,6 +71,7 @@ fun ShareAction() {
         onClick = { /*TODO share icon action*/ }
     ) {
         Icon(
+            tint = Color.White,
             imageVector = Icons.Default.Share,
             contentDescription = "Share Icon"
         )
@@ -80,6 +84,7 @@ fun ProfileAction(onProfileClick: () -> Unit) {
         onClick = { onProfileClick() }
     ) {
         Icon(
+            tint = Color.White,
             imageVector = Icons.Default.AccountCircle,
             contentDescription = "AccountCircle Icon"
         )

@@ -5,6 +5,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -14,6 +15,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.musictime.navigation.BottomBarScreen
 import com.example.musictime.navigation.bottomScreens
 import com.example.musictime.navigation.navgraph.BottomNavGraph
+import com.example.musictime.ui.theme.colorPrimary
+import com.example.musictime.ui.theme.colorSecondary
 
 @ExperimentalComposeUiApi
 @Composable
@@ -22,7 +25,7 @@ fun BottomBarScreen(
     rootNavController: NavHostController
 ) {
     Scaffold(
-        bottomBar = { BottomBar(navController = navController) }
+        bottomBar = { BottomBar(navController = navController) },
     ) { paddingValues ->
         BottomNavGraph(
             paddingValues = paddingValues,

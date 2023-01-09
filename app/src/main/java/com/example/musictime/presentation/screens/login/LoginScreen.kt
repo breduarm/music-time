@@ -7,7 +7,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import com.example.musictime.R
 import com.example.musictime.navigation.navgraph.Graph
 
 @Composable
@@ -23,7 +25,7 @@ fun LoginScreen(
                 rootNavController.popBackStack()
                 rootNavController.navigate(Graph.BOTTOM)
             },
-            text = "LOGIN SCREEN"
+            text = stringResource(R.string.login_screen)
         )
     }
 }
