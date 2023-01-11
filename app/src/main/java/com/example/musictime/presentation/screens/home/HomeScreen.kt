@@ -26,8 +26,6 @@ import com.example.musictime.R
 import com.example.musictime.navigation.NavigationDrawerItem
 import com.example.musictime.ui.theme.colorPrimary
 import com.example.musictime.ui.theme.colorSecondary
-import com.example.musictime.ui.theme.colorTernary
-import com.example.musictime.ui.theme.onBoardingScreenBackgroundColor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
