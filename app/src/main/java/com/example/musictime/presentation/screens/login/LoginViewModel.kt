@@ -23,6 +23,6 @@ class LoginViewModel : ViewModel(){
 
     private fun isValidPassword(password: String): Boolean = password.length > 6
 
-    private fun isValidName(name: String): Boolean = name.length > 6
+    private fun isValidName(name: String): Boolean = name.length > 2
 
 }

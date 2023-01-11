@@ -1,5 +1,6 @@
 package com.example.musictime.presentation.screens.login
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,7 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.musictime.R
 import com.example.musictime.navigation.navgraph.Graph
 import com.example.musictime.ui.theme.colorPrimary
-import kotlinx.coroutines.launch
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun LoginScreen(
@@ -46,6 +46,7 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
     val name: String by viewModel.name.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
     val loginEnabled: Boolean by viewModel.loginEnabled.observeAsState(initial = false)
+    var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     Column(modifier = modifier) {
         // HeaderImage(Modifier.align(Alignment.CenterHorizontally))
@@ -56,15 +57,24 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
         // Spacer(modifier = Modifier.padding(8.dp))
         // ForgotPassword(Modifier.align(Alignment.End))
         Spacer(modifier = Modifier.padding(16.dp))
-        LoginButton(loginEnabled, rootNavController)
+        LoginButton(loginEnabled, rootNavController, auth)
     }
 
     }
 
 @Composable
-fun LoginButton(loginEnabled: Boolean, rootNavController: NavHostController) {
+fun LoginButton(loginEnabled: Boolean, rootNavController: NavHostController, auth: FirebaseAuth) {
     Button(
         onClick = {
+            auth.signInAnonymously()
+                .addOnCompleteListener { task ->
+                    if(task.isSuccessful){
+                        Log.i("LOGIN", "isSuccessful")
+                    } else{
+                        Log.i("LOGIN", "error")
+                    }
+                }
+
             rootNavController.popBackStack()
             rootNavController.navigate(Graph.BOTTOM)
                   },
