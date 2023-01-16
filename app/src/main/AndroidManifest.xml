@@ -6,9 +6,9 @@
     <application
         android:allowBackup="true"
         android:name=".MusicTime"
-        android:icon="@mipmap/ic_time"
+        android:icon="@mipmap/ic_music"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_time_round"
+        android:roundIcon="@mipmap/ic_music_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CustomSplashScreen">
         <activity

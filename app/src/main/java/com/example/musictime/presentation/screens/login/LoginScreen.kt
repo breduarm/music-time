@@ -24,6 +24,8 @@ import com.example.musictime.R
 import com.example.musictime.navigation.navgraph.Graph
 import com.example.musictime.ui.theme.colorPrimary
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun LoginScreen(
@@ -47,37 +49,93 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
     val password: String by viewModel.password.observeAsState(initial = "")
     val loginEnabled: Boolean by viewModel.loginEnabled.observeAsState(initial = false)
     var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    var firebaseService: FirebaseService = FirebaseService(FirebaseFirestore.getInstance())
+    val databaseReference = FirebaseDatabase.getInstance()
+        .getReferenceFromUrl("https://crypto-les-default-rtdb.firebaseio.com/")
 
     Column(modifier = modifier) {
-        // HeaderImage(Modifier.align(Alignment.CenterHorizontally))
-        Spacer(modifier = Modifier.padding(16.dp))
+        HeaderImage(Modifier.align(Alignment.CenterHorizontally))
         NameField(name) { viewModel.onLoginChanged(it, password) }
-        // Spacer(modifier = Modifier.padding(16.dp))
-        // PasswordField(password) { viewModel.onLoginChanged(name, it)}
-        // Spacer(modifier = Modifier.padding(8.dp))
-        // ForgotPassword(Modifier.align(Alignment.End))
+        //Spacer(modifier = Modifier.padding(8.dp))
+        //PasswordField(password) { viewModel.onLoginChanged(name, it)}
+        //Spacer(modifier = Modifier.padding(8.dp))
+        //ForgotPassword(Modifier.align(Alignment.End))
         Spacer(modifier = Modifier.padding(16.dp))
-        LoginButton(loginEnabled, rootNavController, auth)
+        LoginButton(loginEnabled, rootNavController, auth, name, firebaseService, databaseReference)
+        Spacer(modifier = Modifier.padding(8.dp))
+        GetUserData(databaseReference)
     }
 
-    }
+}
 
 @Composable
-fun LoginButton(loginEnabled: Boolean, rootNavController: NavHostController, auth: FirebaseAuth) {
+fun GetUserData(databaseReference: DatabaseReference) {
+    Button(
+        onClick = {
+            databaseReference.child("db_users").addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val data = snapshot.children.mapNotNull {
+                        it.getValue(Users::class.java)
+                    }
+                    Log.i("LOGIN", "GetUserData : $data")
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+            val data: List<Users>
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(48.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color(0xFFC8F0D6),
+            disabledBackgroundColor = Color(0x8BC8F0D6),
+            contentColor = Color(0xFF222838),
+            disabledContentColor = Color(0xFF222838)
+        ),
+    ) {
+        Text(text = "Get User Data")
+    }
+}
+
+@Composable
+fun LoginButton(
+    loginEnabled: Boolean,
+    rootNavController: NavHostController,
+    auth: FirebaseAuth,
+    name: String,
+    firebaseService: FirebaseService,
+    databaseReference: DatabaseReference
+) {
     Button(
         onClick = {
             auth.signInAnonymously()
                 .addOnCompleteListener { task ->
-                    if(task.isSuccessful){
-                        Log.i("LOGIN", "isSuccessful")
-                    } else{
-                        Log.i("LOGIN", "error")
+                    if (task.isSuccessful) {
+                        Log.i("LOGIN", "auth : isSuccessful")
+                        //val user = User()
+                        //user.username = name
+                        //saveUser(user, firebaseService, rootNavController)
+
+                        val id = databaseReference.push().key
+                        val user = Users(id, name, "les@gmail.com")
+                        databaseReference.child("db_users").child(id.toString()).setValue(user)
+                        Log.i("LOGIN", "firebaseService : onSuccess")
+                        rootNavController.popBackStack()
+                        rootNavController.navigate(Graph.BOTTOM)
+
+                    } else {
+                        Log.i("LOGIN", "auth : error")
                     }
                 }
 
-            rootNavController.popBackStack()
-            rootNavController.navigate(Graph.BOTTOM)
-                  },
+            //rootNavController.popBackStack()
+            //rootNavController.navigate(Graph.BOTTOM)
+        },
         modifier = Modifier
             .fillMaxWidth()
             .height(48.dp),
@@ -92,6 +150,25 @@ fun LoginButton(loginEnabled: Boolean, rootNavController: NavHostController, aut
         Text(text = "Login")
 
     }
+}
+
+fun saveUser(user: User, firebaseService: FirebaseService, rootNavController: NavHostController) {
+    firebaseService.setDocument(
+        user,
+        USERS_COLLECTION_NAME,
+        user.username,
+        object : Callback<Void> {
+            override fun onSuccess(result: Void?) {
+                Log.i("LOGIN", "firebaseService : onSuccess")
+                rootNavController.popBackStack()
+                rootNavController.navigate(Graph.BOTTOM)
+            }
+
+            override fun onFailed(exception: Exception) {
+                Log.i("LOGIN", "firebaseService : $exception")
+            }
+        })
+
 }
 
 @Composable
@@ -109,7 +186,7 @@ fun ForgotPassword(modifier: Modifier) {
 fun PasswordField(password: String, onTextFieldChanged: (String) -> Unit) {
     TextField(
         value = password,
-        onValueChange = {onTextFieldChanged(it)},
+        onValueChange = { onTextFieldChanged(it) },
         placeholder = { Text(text = "Password", color = Color(0xFF222838)) },
         modifier = Modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -130,7 +207,7 @@ fun PasswordField(password: String, onTextFieldChanged: (String) -> Unit) {
 fun NameField(name: String, onTextFieldChanged: (String) -> Unit) {
     TextField(
         value = name,
-        onValueChange = {onTextFieldChanged(it)},
+        onValueChange = { onTextFieldChanged(it) },
         modifier = Modifier.fillMaxWidth(),
         placeholder = { Text(text = "Name", color = Color(0xFF222838)) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
@@ -138,7 +215,7 @@ fun NameField(name: String, onTextFieldChanged: (String) -> Unit) {
         maxLines = 1,
         colors = TextFieldDefaults.textFieldColors(
             textColor = Color(0xFF4E5C81),
-            backgroundColor =  Color.White,
+            backgroundColor = Color.White,
             focusedIndicatorColor = Color(0xFFFED0D2),
             unfocusedIndicatorColor = Color(0xFFC8F0D6)
 
@@ -149,12 +226,12 @@ fun NameField(name: String, onTextFieldChanged: (String) -> Unit) {
 @Composable
 fun HeaderImage(modifier: Modifier) {
     Image(
-        painter = painterResource(id = R.drawable.time),
+        painter = painterResource(id = R.drawable.logo),
         contentDescription = "Header",
         modifier = modifier
             .fillMaxWidth()
-            .width(100.dp)
-            .height(100.dp),
+            .width(200.dp)
+            .height(200.dp),
     )
 }
 
