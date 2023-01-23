@@ -1,14 +1,11 @@
 package com.example.musictime.data.server.firebase
 
 import android.util.Log
-import com.example.musictime.domain.Users
 import com.example.musictime.domain.source.FirebaseDataSource
-import com.example.musictime.navigation.navgraph.Graph
 import com.example.musictime.presentation.screens.login.FirebaseService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 
 class FirebaseServices : FirebaseDataSource {
     private val reference = "https://crypto-les-default-rtdb.firebaseio.com/"
