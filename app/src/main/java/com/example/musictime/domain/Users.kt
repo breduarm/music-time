@@ -1,4 +1,4 @@
-package com.example.musictime.presentation.screens.login
+package com.example.musictime.domain
 
 data class Users(
     val id: String? = "",

@@ -1,4 +1,4 @@
-package com.example.musictime.domain.use_cases.data_store
+package com.example.musictime.domain.usecases.data_store
 
 import com.example.musictime.data.repository.Repository
 

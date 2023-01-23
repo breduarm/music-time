@@ -8,9 +8,9 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import com.example.musictime.data.repository.DataStoreOperationsImpl
 import com.example.musictime.data.repository.Repository
 import com.example.musictime.domain.repository.DataStoreOperations
-import com.example.musictime.domain.use_cases.UseCases
-import com.example.musictime.domain.use_cases.data_store.ReadOnBoardingPageUseCase
-import com.example.musictime.domain.use_cases.data_store.SaveOnBoardingPageUseCase
+import com.example.musictime.domain.usecases.UseCases
+import com.example.musictime.domain.usecases.data_store.ReadOnBoardingPageUseCase
+import com.example.musictime.domain.usecases.data_store.SaveOnBoardingPageUseCase
 import com.example.musictime.util.Constants.PREFERENCE_NAME
 import dagger.Module
 import dagger.Provides

@@ -1,10 +1,32 @@
 package com.example.musictime.presentation.screens.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.musictime.domain.usecases.UserUsesCases
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel(){
+@HiltViewModel
+class LoginViewModel @Inject constructor (
+    private val userUsesCases: UserUsesCases,
+    ): ViewModel() {
+
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = userUsesCases.authenticationUserFirebase()
+            Log.i("LOGIN", "authenticationUserFirebase : $result")
+
+        }
+    }
+
 
     private val _name = MutableLiveData<String>()
     val name : LiveData<String> = _name

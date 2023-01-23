@@ -2,7 +2,7 @@ package com.example.musictime.presentation.screens.on_boarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.musictime.domain.use_cases.UseCases
+import com.example.musictime.domain.usecases.UseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

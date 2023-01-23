@@ -18,19 +18,23 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.musictime.R
+import com.example.musictime.domain.Users
 import com.example.musictime.navigation.navgraph.Graph
+import com.example.musictime.presentation.screens.on_boarding.OnBoardingViewModel
 import com.example.musictime.ui.theme.colorPrimary
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
+import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel,
-    rootNavController: NavHostController
+    rootNavController: NavHostController,
+    viewModel: LoginViewModel = hiltViewModel()
 ) {
     Box(
         modifier = Modifier
@@ -48,10 +52,10 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
     val name: String by viewModel.name.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
     val loginEnabled: Boolean by viewModel.loginEnabled.observeAsState(initial = false)
-    var auth: FirebaseAuth = FirebaseAuth.getInstance()
-    var firebaseService: FirebaseService = FirebaseService(FirebaseFirestore.getInstance())
-    val databaseReference = FirebaseDatabase.getInstance()
-        .getReferenceFromUrl("https://crypto-les-default-rtdb.firebaseio.com/")
+   // var auth: FirebaseAuth = FirebaseAuth.getInstance()
+   // var firebaseService: FirebaseService = FirebaseService(FirebaseFirestore.getInstance())
+   // val databaseReference = FirebaseDatabase.getInstance()
+     //   .getReferenceFromUrl("https://crypto-les-default-rtdb.firebaseio.com/")
 
     Column(modifier = modifier) {
         HeaderImage(Modifier.align(Alignment.CenterHorizontally))
@@ -61,9 +65,9 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
         //Spacer(modifier = Modifier.padding(8.dp))
         //ForgotPassword(Modifier.align(Alignment.End))
         Spacer(modifier = Modifier.padding(16.dp))
-        LoginButton(loginEnabled, rootNavController, auth, name, firebaseService, databaseReference)
+      //  LoginButton(loginEnabled, rootNavController, auth, name, firebaseService, databaseReference)
         Spacer(modifier = Modifier.padding(8.dp))
-        GetUserData(databaseReference)
+       // GetUserData(databaseReference)
     }
 
 }
@@ -76,8 +80,12 @@ fun GetUserData(databaseReference: DatabaseReference) {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val data = snapshot.children.mapNotNull {
                         it.getValue(Users::class.java)
+
                     }
+
                     Log.i("LOGIN", "GetUserData : $data")
+                    Log.i("LOGIN", "GetUserData [] : ${data[0]}")
+                    Log.i("LOGIN", "GetUserData size : ${data.size}")
 
                 }
 
@@ -238,5 +246,5 @@ fun HeaderImage(modifier: Modifier) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen(rootNavController = rememberNavController(), viewModel = LoginViewModel())
+    LoginScreen(rootNavController = rememberNavController())
 }

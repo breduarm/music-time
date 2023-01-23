@@ -3,7 +3,7 @@ package com.example.musictime.presentation.screens.splash
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.musictime.domain.use_cases.UseCases
+import com.example.musictime.domain.usecases.UseCases
 import com.example.musictime.navigation.navgraph.Graph
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
