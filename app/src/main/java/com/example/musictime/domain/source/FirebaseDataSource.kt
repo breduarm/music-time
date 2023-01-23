@@ -2,5 +2,6 @@ package com.example.musictime.domain.source
 
 interface FirebaseDataSource {
     suspend fun authenticationUserFirebase()
-    suspend fun loginUserFirebase(email: String, password: String)
+    suspend fun signUpUserFirebase(name: String, age: String, email: String, password: String)
+    suspend fun getUserFirebase(email: String, password: String)
 }

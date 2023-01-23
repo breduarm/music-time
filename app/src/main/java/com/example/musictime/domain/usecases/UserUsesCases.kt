@@ -6,5 +6,6 @@ class UserUsesCases(
     private val firebaseRepository: FirebaseRepository,
 ) {
     suspend fun authenticationUserFirebase() = firebaseRepository.authenticationUserFirebase()
-    suspend fun loginUserFirebase(email: String, password: String) = firebaseRepository.loginUserFirebase(email, password)
+    suspend fun signUpUserFirebase(name: String, age: String, email: String, password: String) = firebaseRepository.signUpUserFirebase(name, age, email, password)
+    suspend fun getUserFirebase(email: String, password: String) = firebaseRepository.getUserFirebase(email, password)
 }
