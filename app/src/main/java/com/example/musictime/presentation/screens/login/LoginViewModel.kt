@@ -1,5 +1,6 @@
 package com.example.musictime.presentation.screens.login
 
+import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -70,9 +71,17 @@ class LoginViewModel @Inject constructor (
     fun onLoginBackClick() { _signUpSwitch.value = false }
 
     private fun isValidName(name: String): Boolean = name.length > 2
-    private fun isValidAge(age: String): Boolean = age.length > 2
+    private fun isValidAge(age: String): Boolean = age.length >= 2
     private fun isValidEmail(email: String): Boolean = Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    private fun isValidPassword(password: String): Boolean = password.length > 6
+    private fun isValidPassword(password: String): Boolean = password.length >= 6
+
+    fun requestSignUp(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = userUsesCases.signUpUserFirebase(_name.value!!, _age.value!!, _emailSignUp.value!!, _passwordSignUp.value!!)
+            Log.i("FIREBASE", "signUpUserFirebase : $result")
+
+        }
+    }
 
 
 }

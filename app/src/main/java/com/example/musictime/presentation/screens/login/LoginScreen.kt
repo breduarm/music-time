@@ -75,7 +75,7 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
         AgeField(sigUpSwitch, age) { viewModel.onSignUpChanged(name, it, email, password) }
         EmailFieldSignUp(sigUpSwitch, emailSignUp) { viewModel.onSignUpChanged(name, age, it, passwordSignUp) }
         PasswordFieldSignUp(sigUpSwitch, passwordSignUp) { viewModel.onSignUpChanged(name, age, emailSignUp, it) }
-        SignUpRegisterButton(sigUpSwitch, signUpEnabled)
+        SignUpRegisterButton(sigUpSwitch, signUpEnabled, viewModel)
         LoginBackButton(sigUpSwitch, Modifier.align(Alignment.CenterHorizontally), viewModel)
     }
 }
@@ -166,10 +166,10 @@ fun LoginButton(signUpSwitch: Boolean, loginEnabled: Boolean) {
 }
 
 @Composable
-fun SignUpRegisterButton(signUpSwitch: Boolean, signUpEnabled: Boolean) {
+fun SignUpRegisterButton(signUpSwitch: Boolean, signUpEnabled: Boolean, viewModel: LoginViewModel) {
     if(signUpSwitch){
         Button(
-            onClick = { },
+            onClick = { viewModel.requestSignUp() },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
