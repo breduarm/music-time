@@ -40,6 +40,8 @@ fun LoginScreen(
 
         ) {
         Login(Modifier.align(Alignment.TopStart), viewModel, rootNavController)
+        VersionEnd(Modifier.align(Alignment.BottomCenter))
+
     }
 }
 
@@ -49,8 +51,11 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
     val age: String by viewModel.age.observeAsState(initial = "")
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
+    val emailSignUp: String by viewModel.emailSignUp.observeAsState(initial = "")
+    val passwordSignUp: String by viewModel.passwordSignUp.observeAsState(initial = "")
     val loginEnabled: Boolean by viewModel.loginEnabled.observeAsState(initial = false)
-    val sigUpEnabled: Boolean by viewModel.signUpClick.observeAsState(initial = false)
+    val signUpEnabled: Boolean by viewModel.signUpEnabled.observeAsState(initial = false)
+    val sigUpSwitch: Boolean by viewModel.signUpSwitch.observeAsState(initial = false)
    // var auth: FirebaseAuth = FirebaseAuth.getInstance()
    // var firebaseService: FirebaseService = FirebaseService(FirebaseFirestore.getInstance())
    // val databaseReference = FirebaseDatabase.getInstance()
@@ -59,17 +64,20 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
     Column(modifier = modifier) {
         /** Login */
         HeaderImage(Modifier.align(Alignment.CenterHorizontally))
-        EmailField(sigUpEnabled, email){ viewModel.onLoginChanged(it, password)}
-        PasswordField(sigUpEnabled, password) { viewModel.onLoginChanged(email, it)}
-        ForgotPasswordButton(sigUpEnabled, Modifier.align(Alignment.End))
-        LoginButton(sigUpEnabled, loginEnabled)
-        SignUpButton(sigUpEnabled, Modifier.align(Alignment.CenterHorizontally), viewModel)
+        EmailField(sigUpSwitch, email){ viewModel.onLoginChanged(it, password)}
+        PasswordField(sigUpSwitch, password) { viewModel.onLoginChanged(email, it)}
+        ForgotPasswordButton(sigUpSwitch, Modifier.align(Alignment.End))
+        LoginButton(sigUpSwitch, loginEnabled)
+        SignUpButton(sigUpSwitch, Modifier.align(Alignment.CenterHorizontally), viewModel)
         /** Sign Up */
         // GetUserData(databaseReference)
-        NameField(sigUpEnabled, name) { viewModel.onSignUpChanged(it, age, email, password) }
-        AgeField(sigUpEnabled, age) { viewModel.onSignUpChanged(name, it, email, password) }
+        NameField(sigUpSwitch, name) { viewModel.onSignUpChanged(it, age, email, password) }
+        AgeField(sigUpSwitch, age) { viewModel.onSignUpChanged(name, it, email, password) }
+        EmailFieldSignUp(sigUpSwitch, emailSignUp) { viewModel.onSignUpChanged(name, age, it, passwordSignUp) }
+        PasswordFieldSignUp(sigUpSwitch, passwordSignUp) { viewModel.onSignUpChanged(name, age, emailSignUp, it) }
+        SignUpRegisterButton(sigUpSwitch, signUpEnabled)
+        LoginBackButton(sigUpSwitch, Modifier.align(Alignment.CenterHorizontally), viewModel)
     }
-
 }
 
 @Composable
@@ -109,8 +117,8 @@ fun GetUserData(databaseReference: DatabaseReference) {
 }
 
 @Composable
-fun LoginButton(signUpEnabled: Boolean, loginEnabled: Boolean) {
-    if(!signUpEnabled){
+fun LoginButton(signUpSwitch: Boolean, loginEnabled: Boolean) {
+    if(!signUpSwitch){
         Button(
             onClick = {
                 /*
@@ -156,6 +164,54 @@ fun LoginButton(signUpEnabled: Boolean, loginEnabled: Boolean) {
         Spacer(modifier = Modifier.padding(10.dp))
     }
 }
+
+@Composable
+fun SignUpRegisterButton(signUpSwitch: Boolean, signUpEnabled: Boolean) {
+    if(signUpSwitch){
+        Button(
+            onClick = { },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color(0xFFC8F0D6),
+                disabledBackgroundColor = Color(0x8BC8F0D6),
+                contentColor = Color(0xFF222838),
+                disabledContentColor = Color(0xFF222838)
+            ),
+            enabled = signUpEnabled
+        ) {
+            Text(text = "Sign Up")
+        }
+
+        Spacer(modifier = Modifier.padding(10.dp))
+    }
+}
+
+@Composable
+fun LoginBackButton(signUpEnabled: Boolean, modifier: Modifier, viewModel: LoginViewModel) {
+    if(signUpEnabled){
+        Text(
+            text = "Login",
+            modifier = modifier.clickable { viewModel.onLoginBackClick() },
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White
+        )
+    }
+}
+
+@Composable
+fun VersionEnd(modifier: Modifier) {
+    Text(
+        text = "©LT",
+        modifier = modifier,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Bold,
+        color = Color.White
+    )
+}
+
 
 fun saveUser(user: User, firebaseService: FirebaseService, rootNavController: NavHostController) {
     firebaseService.setDocument(
@@ -274,8 +330,8 @@ fun NameField(signUpEnabled: Boolean, name: String, onTextFieldChanged: (String)
 }
 
 @Composable
-fun AgeField(sigUpEnabled: Boolean, age: String, onTextFieldChanged: (String) -> Unit) {
-    if(sigUpEnabled){
+fun AgeField(signUpEnabled: Boolean, age: String, onTextFieldChanged: (String) -> Unit) {
+    if(signUpEnabled){
         TextField(
             value = age,
             onValueChange = { onTextFieldChanged(it) },
@@ -292,6 +348,52 @@ fun AgeField(sigUpEnabled: Boolean, age: String, onTextFieldChanged: (String) ->
 
             )
         )
+        Spacer(modifier = Modifier.padding(8.dp))
+    }
+}
+
+@Composable
+fun EmailFieldSignUp(signUpEnabled: Boolean, email: String, onTextFieldChanged: (String) -> Unit) {
+    if(signUpEnabled){
+        TextField(
+            value = email,
+            onValueChange = { onTextFieldChanged(it) },
+            placeholder = { Text(text = "Email", color = Color(0xFF222838)) },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            singleLine = true,
+            maxLines = 1,
+            colors = TextFieldDefaults.textFieldColors(
+                textColor = Color(0xFF4E5C81),
+                backgroundColor = Color.White,
+                focusedIndicatorColor = Color(0xFFFED0D2),
+                unfocusedIndicatorColor = Color(0xFFC8F0D6)
+            ),
+        )
+
+        Spacer(modifier = Modifier.padding(8.dp))
+    }
+}
+
+@Composable
+fun PasswordFieldSignUp(signUpEnabled: Boolean, password: String, onTextFieldChanged: (String) -> Unit) {
+    if(signUpEnabled){
+        TextField(
+            value = password,
+            onValueChange = { onTextFieldChanged(it) },
+            placeholder = { Text(text = "Password", color = Color(0xFF222838)) },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            singleLine = true,
+            maxLines = 1,
+            colors = TextFieldDefaults.textFieldColors(
+                textColor = Color(0xFF4E5C81),
+                backgroundColor = Color.White,
+                focusedIndicatorColor = Color(0xFFFED0D2),
+                unfocusedIndicatorColor = Color(0xFFC8F0D6)
+            )
+        )
+
         Spacer(modifier = Modifier.padding(8.dp))
     }
 }
