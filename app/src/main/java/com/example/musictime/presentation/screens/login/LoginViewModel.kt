@@ -47,7 +47,9 @@ class LoginViewModel @Inject constructor (
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val result = userUsesCases.authenticationUserFirebase()
-            //Log.i("FIREBASE", "authenticationUserFirebase : $result")
+            Log.i("FIREBASE", "authenticationUserFirebase : $result")
+            val getUser = userUsesCases.getUserFirebase("", "")
+            Log.i("FIREBASE", "getUserFirebase : $getUser")
 
         }
     }
@@ -79,6 +81,14 @@ class LoginViewModel @Inject constructor (
         viewModelScope.launch(Dispatchers.IO) {
             val result = userUsesCases.signUpUserFirebase(_name.value!!, _age.value!!, _emailSignUp.value!!, _passwordSignUp.value!!)
             Log.i("FIREBASE", "signUpUserFirebase : $result")
+
+        }
+    }
+
+    fun requestLogin() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = userUsesCases.loginFirebase(_email.value!!, _password.value!!)
+            Log.i("FIREBASE", "loginFirebase : $result")
 
         }
     }

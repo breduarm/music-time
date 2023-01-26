@@ -2,8 +2,11 @@ package com.example.musictime.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.musictime.data.database.dao.UserDao
+import com.example.musictime.data.database.db.RoomDataBase
 import com.example.musictime.data.database.db.UserDataBase
 import com.example.musictime.data.server.firebase.FirebaseServices
+import com.example.musictime.domain.source.LocalDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,5 +28,8 @@ class AppModule {
 
     @Provides
     fun firebaseServicesProvider(): FirebaseServices = FirebaseServices()
+
+    @Provides
+    fun localDataSource(userDao: UserDao): LocalDataSource = RoomDataBase(userDao)
 
 }

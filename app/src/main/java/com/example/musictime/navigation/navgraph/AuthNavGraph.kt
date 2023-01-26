@@ -10,7 +10,6 @@ import com.example.musictime.presentation.screens.login.LoginScreen
 import com.example.musictime.presentation.screens.login.LoginViewModel
 
 fun NavGraphBuilder.authNavGraph(rootNavController: NavHostController) {
-    val userUsesCases : UserUsesCases
     navigation(
         route = Graph.AUTH,
         startDestination = Screen.Login.route

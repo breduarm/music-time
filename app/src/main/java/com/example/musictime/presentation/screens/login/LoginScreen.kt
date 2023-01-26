@@ -22,7 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.musictime.R
-import com.example.musictime.domain.Users
+import com.example.musictime.domain.User
 import com.example.musictime.navigation.navgraph.Graph
 import com.example.musictime.ui.theme.colorPrimary
 import com.google.firebase.database.*
@@ -37,11 +37,9 @@ fun LoginScreen(
             .background(colorPrimary)
             .fillMaxSize()
             .padding(16.dp),
-
-        ) {
+    ) {
         Login(Modifier.align(Alignment.TopStart), viewModel, rootNavController)
         VersionEnd(Modifier.align(Alignment.BottomCenter))
-
     }
 }
 
@@ -56,23 +54,23 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
     val loginEnabled: Boolean by viewModel.loginEnabled.observeAsState(initial = false)
     val signUpEnabled: Boolean by viewModel.signUpEnabled.observeAsState(initial = false)
     val sigUpSwitch: Boolean by viewModel.signUpSwitch.observeAsState(initial = false)
-   // var auth: FirebaseAuth = FirebaseAuth.getInstance()
-   // var firebaseService: FirebaseService = FirebaseService(FirebaseFirestore.getInstance())
-   // val databaseReference = FirebaseDatabase.getInstance()
-     //   .getReferenceFromUrl("https://crypto-les-default-rtdb.firebaseio.com/")
+    // var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    // var firebaseService: FirebaseService = FirebaseService(FirebaseFirestore.getInstance())
+    // val databaseReference = FirebaseDatabase.getInstance()
+    //   .getReferenceFromUrl("https://crypto-les-default-rtdb.firebaseio.com/")
 
     Column(modifier = modifier) {
         /** Login */
         HeaderImage(Modifier.align(Alignment.CenterHorizontally))
-        EmailField(sigUpSwitch, email){ viewModel.onLoginChanged(it, password)}
-        PasswordField(sigUpSwitch, password) { viewModel.onLoginChanged(email, it)}
+        EmailField(sigUpSwitch, email) { viewModel.onLoginChanged(it, password) }
+        PasswordField(sigUpSwitch, password) { viewModel.onLoginChanged(email, it) }
         ForgotPasswordButton(sigUpSwitch, Modifier.align(Alignment.End))
-        LoginButton(sigUpSwitch, loginEnabled)
+        LoginButton(sigUpSwitch, loginEnabled, viewModel)
         SignUpButton(sigUpSwitch, Modifier.align(Alignment.CenterHorizontally), viewModel)
         /** Sign Up */
         // GetUserData(databaseReference)
-        NameField(sigUpSwitch, name) { viewModel.onSignUpChanged(it, age, email, password) }
-        AgeField(sigUpSwitch, age) { viewModel.onSignUpChanged(name, it, email, password) }
+        NameField(sigUpSwitch, name) { viewModel.onSignUpChanged(it, age, emailSignUp, passwordSignUp) }
+        AgeField(sigUpSwitch, age) { viewModel.onSignUpChanged(name, it, emailSignUp, passwordSignUp) }
         EmailFieldSignUp(sigUpSwitch, emailSignUp) { viewModel.onSignUpChanged(name, age, it, passwordSignUp) }
         PasswordFieldSignUp(sigUpSwitch, passwordSignUp) { viewModel.onSignUpChanged(name, age, emailSignUp, it) }
         SignUpRegisterButton(sigUpSwitch, signUpEnabled, viewModel)
@@ -84,10 +82,10 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
 fun GetUserData(databaseReference: DatabaseReference) {
     Button(
         onClick = {
-            databaseReference.child("db_users").addValueEventListener(object : ValueEventListener{
+            databaseReference.child("db_users").addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val data = snapshot.children.mapNotNull {
-                        it.getValue(Users::class.java)
+                        it.getValue(User::class.java)
                     }
                     Log.i("LOGIN", "GetUserData : $data")
                     Log.i("LOGIN", "GetUserData [] : ${data[0]}")
@@ -100,7 +98,7 @@ fun GetUserData(databaseReference: DatabaseReference) {
                 }
 
             })
-            val data: List<Users>
+            val data: List<User>
         },
         modifier = Modifier
             .fillMaxWidth()
@@ -117,10 +115,11 @@ fun GetUserData(databaseReference: DatabaseReference) {
 }
 
 @Composable
-fun LoginButton(signUpSwitch: Boolean, loginEnabled: Boolean) {
-    if(!signUpSwitch){
+fun LoginButton(signUpSwitch: Boolean, loginEnabled: Boolean, viewModel: LoginViewModel) {
+    if (!signUpSwitch) {
         Button(
             onClick = {
+                viewModel.requestLogin()
                 /*
                 auth.signInAnonymously()
                     .addOnCompleteListener { task ->
@@ -167,7 +166,7 @@ fun LoginButton(signUpSwitch: Boolean, loginEnabled: Boolean) {
 
 @Composable
 fun SignUpRegisterButton(signUpSwitch: Boolean, signUpEnabled: Boolean, viewModel: LoginViewModel) {
-    if(signUpSwitch){
+    if (signUpSwitch) {
         Button(
             onClick = { viewModel.requestSignUp() },
             modifier = Modifier
@@ -190,7 +189,7 @@ fun SignUpRegisterButton(signUpSwitch: Boolean, signUpEnabled: Boolean, viewMode
 
 @Composable
 fun LoginBackButton(signUpEnabled: Boolean, modifier: Modifier, viewModel: LoginViewModel) {
-    if(signUpEnabled){
+    if (signUpEnabled) {
         Text(
             text = "Login",
             modifier = modifier.clickable { viewModel.onLoginBackClick() },
@@ -212,7 +211,7 @@ fun VersionEnd(modifier: Modifier) {
     )
 }
 
-
+/*
 fun saveUser(user: User, firebaseService: FirebaseService, rootNavController: NavHostController) {
     firebaseService.setDocument(
         user,
@@ -232,9 +231,15 @@ fun saveUser(user: User, firebaseService: FirebaseService, rootNavController: Na
 
 }
 
+ */
+
 @Composable
-fun SignUpButton(signUpEnabled: Boolean, modifier: Modifier, viewModel: LoginViewModel) {
-    if(!signUpEnabled){
+fun SignUpButton(
+    signUpEnabled: Boolean,
+    modifier: Modifier,
+    viewModel: LoginViewModel
+) {
+    if (!signUpEnabled) {
         Text(
             text = "Sign up",
             modifier = modifier.clickable { viewModel.onSignUpClick() },
@@ -247,7 +252,7 @@ fun SignUpButton(signUpEnabled: Boolean, modifier: Modifier, viewModel: LoginVie
 
 @Composable
 fun ForgotPasswordButton(signUpEnabled: Boolean, modifier: Modifier) {
-    if(!signUpEnabled){
+    if (!signUpEnabled) {
         Text(
             text = "Forgot Password?",
             modifier = modifier.clickable { },
@@ -261,7 +266,7 @@ fun ForgotPasswordButton(signUpEnabled: Boolean, modifier: Modifier) {
 
 @Composable
 fun EmailField(signUpEnabled: Boolean, email: String, onTextFieldChanged: (String) -> Unit) {
-    if(!signUpEnabled){
+    if (!signUpEnabled) {
         TextField(
             value = email,
             onValueChange = { onTextFieldChanged(it) },
@@ -284,7 +289,7 @@ fun EmailField(signUpEnabled: Boolean, email: String, onTextFieldChanged: (Strin
 
 @Composable
 fun PasswordField(signUpEnabled: Boolean, password: String, onTextFieldChanged: (String) -> Unit) {
-    if(!signUpEnabled){
+    if (!signUpEnabled) {
         TextField(
             value = password,
             onValueChange = { onTextFieldChanged(it) },
@@ -308,7 +313,7 @@ fun PasswordField(signUpEnabled: Boolean, password: String, onTextFieldChanged: 
 
 @Composable
 fun NameField(signUpEnabled: Boolean, name: String, onTextFieldChanged: (String) -> Unit) {
-    if(signUpEnabled){
+    if (signUpEnabled) {
         TextField(
             value = name,
             onValueChange = { onTextFieldChanged(it) },
@@ -331,7 +336,7 @@ fun NameField(signUpEnabled: Boolean, name: String, onTextFieldChanged: (String)
 
 @Composable
 fun AgeField(signUpEnabled: Boolean, age: String, onTextFieldChanged: (String) -> Unit) {
-    if(signUpEnabled){
+    if (signUpEnabled) {
         TextField(
             value = age,
             onValueChange = { onTextFieldChanged(it) },
@@ -354,7 +359,7 @@ fun AgeField(signUpEnabled: Boolean, age: String, onTextFieldChanged: (String) -
 
 @Composable
 fun EmailFieldSignUp(signUpEnabled: Boolean, email: String, onTextFieldChanged: (String) -> Unit) {
-    if(signUpEnabled){
+    if (signUpEnabled) {
         TextField(
             value = email,
             onValueChange = { onTextFieldChanged(it) },
@@ -376,8 +381,12 @@ fun EmailFieldSignUp(signUpEnabled: Boolean, email: String, onTextFieldChanged: 
 }
 
 @Composable
-fun PasswordFieldSignUp(signUpEnabled: Boolean, password: String, onTextFieldChanged: (String) -> Unit) {
-    if(signUpEnabled){
+fun PasswordFieldSignUp(
+    signUpEnabled: Boolean,
+    password: String,
+    onTextFieldChanged: (String) -> Unit
+) {
+    if (signUpEnabled) {
         TextField(
             value = password,
             onValueChange = { onTextFieldChanged(it) },

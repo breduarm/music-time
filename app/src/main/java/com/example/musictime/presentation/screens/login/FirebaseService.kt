@@ -14,6 +14,7 @@ class FirebaseService (val firebaseFirestone: FirebaseFirestore){
             .addOnFailureListener { exception -> callback.onFailed(exception) }
     }
 
+    /*
     fun updateUser(user: User, callback: Callback<User>?){
         firebaseFirestone.collection(USERS_COLLECTION_NAME).document(user.username)
             .update("musicList", user.musicList)
@@ -28,5 +29,7 @@ class FirebaseService (val firebaseFirestone: FirebaseFirestore){
         firebaseFirestone.collection(MUSIC_COLLECTION_NAME).document(music.getDocumentId())
             .update("item", music.item)
     }
+
+     */
 
 }
