@@ -10,23 +10,15 @@ class FirebaseRepository(
     private val localDataSource: LocalDataSource
 ) {
     suspend fun authenticationUserFirebase() = firebaseDataSource.authenticationUserFirebase()
-    suspend fun signUpUserFirebase(name: String, age: String, email: String, password: String) {
-        val user = User(
-            name = name,
-            age = age,
-            email = email,
-            password = password
-        )
-        val userSave = localDataSource.saveUser(user).run {
-            firebaseDataSource.signUpUserFirebase(name, age, email, password)
-        }
-        Log.i("FIREBASE", "saveUser : $userSave")
 
+    suspend fun signUpUserFirebase(name: String, age: String, email: String, password: String) {
+        val user = User(name = name, age = age, email = email, password = password)
+        val userSave = localDataSource.saveUser(user).run { firebaseDataSource.signUpUserFirebase(name, age, email, password) }
+        Log.i("FIREBASE", "saveUser : $userSave")
     }
 
 
-    suspend fun getUserFirebase(email: String, password: String) =
-        firebaseDataSource.getUserFirebase(email, password)
+    suspend fun getUserFirebase(email: String, password: String) = firebaseDataSource.getUserFirebase(email, password)
 
     suspend fun loginFirebase(email: String, password: String): Boolean {
         val userLocalEmail = localDataSource.getUserByEmail(email)
@@ -36,18 +28,16 @@ class FirebaseRepository(
         Log.i("FIREBASE", "userLocalPassword : $userLocalPassword")
 
         /*
-            userLocal?.let { saveUserDB(it.apply {
-                it.token = userResponse.result!!.token
-                it.biometricId = userResponse.result!!.biometricId
-                it.emailVerificationIsVerified = userResponse.result!!.emailVerificationIsVerified
-            })
-            } ?: run { saveUserDB(userResponse.result!!) }
-            localDataSource.setUserLogged(userResponse.result!!.id)
+
+        if(userLocalEmail != null && userLocalPassword != null){
+            return true
+        } else {
+            //TODO: consulta firebase  y buscar si existe el user
+            //getUserFirebase(email, password)
+        }
 
          */
 
-
-        return true
-
+        return userLocalEmail != null && userLocalPassword != null
     }
 }
