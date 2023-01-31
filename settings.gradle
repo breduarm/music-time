@@ -14,3 +14,10 @@ dependencyResolutionManagement {
 }
 rootProject.name = "music-time"
 include ':app'
+include ':domain'
+include ':common'
+include ':data'
+include ':usecases'
+include ':common:theme'
+include ':common:components'
+include ':presentation'
