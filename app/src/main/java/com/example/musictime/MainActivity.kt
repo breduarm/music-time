@@ -7,8 +7,8 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.musictime.presentation.navigation.navgraph.RootNavGraph
-import com.example.musictime.presentation.screens.splash.SplashViewModel
+import com.example.musictime.navigation.navgraph.RootNavGraph
+import com.example.musictime.splash.SplashViewModel
 import com.example.musictime.theme.MusictimeTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint

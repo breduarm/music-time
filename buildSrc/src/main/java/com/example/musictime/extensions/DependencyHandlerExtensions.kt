@@ -132,7 +132,15 @@ fun DependencyHandler.addModuleDependencies() {
     implementation(project(mapOf("path" to ":usecases")))
     implementation(project(mapOf("path" to ":common:theme")))
     implementation(project(mapOf("path" to ":common:components")))
-    implementation(project(mapOf("path" to ":presentation")))
+    implementation(project(mapOf("path" to ":common:core")))
+    implementation(project(mapOf("path" to ":features:bottombar")))
+    implementation(project(mapOf("path" to ":features:favourites")))
+    implementation(project(mapOf("path" to ":features:home")))
+    implementation(project(mapOf("path" to ":features:login")))
+    implementation(project(mapOf("path" to ":features:musicplayer")))
+    implementation(project(mapOf("path" to ":features:onboarding")))
+    implementation(project(mapOf("path" to ":features:search")))
+    implementation(project(mapOf("path" to ":features:splash")))
 }
 
 val DependencyHandler.DOMAIN
@@ -145,8 +153,25 @@ val DependencyHandler.THEME
     get() = implementation(project(mapOf("path" to ":common:theme")))
 val DependencyHandler.COMPONENTS
     get() = implementation(project(mapOf("path" to ":common:components")))
-val DependencyHandler.PRESENTATION
-    get() = implementation(project(mapOf("path" to ":presentation")))
+val DependencyHandler.CORE
+    get() = implementation(project(mapOf("path" to ":common:core")))
+val DependencyHandler.BOTTOMBAR
+    get() = implementation(project(mapOf("path" to ":features:bottombar")))
+val DependencyHandler.HOME
+    get() = implementation(project(mapOf("path" to ":features:home")))
+val DependencyHandler.FAVOURITES
+    get() = implementation(project(mapOf("path" to ":features:favourites")))
+val DependencyHandler.SEARCH
+    get() = implementation(project(mapOf("path" to ":features:search")))
+val DependencyHandler.LOGIN
+    get() = implementation(project(mapOf("path" to ":features:login")))
+val DependencyHandler.MUSICPLAYER
+    get() = implementation(project(mapOf("path" to ":features:musicplayer")))
+val DependencyHandler.ONBOARDING
+    get() = implementation(project(mapOf("path" to ":features:onboarding")))
+val DependencyHandler.SPLASH
+    get() = implementation(project(mapOf("path" to ":features:splash")))
+
 
 
 
