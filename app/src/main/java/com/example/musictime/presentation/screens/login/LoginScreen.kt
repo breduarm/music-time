@@ -301,8 +301,8 @@ fun SignUpButton(
         Text(
             text = "Sign up",
             modifier = modifier.clickable {
-                //viewModel.onSignUpClick()
-                rootNavController.navigate(Screen.SignUp.route)
+                viewModel.onSignUpClick()
+               // rootNavController.navigate(Screen.SignUp.route)
             },
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
