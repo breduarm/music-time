@@ -2,5 +2,5 @@
     <string name="app_name">Music-time</string>
     <string name="on_boarding_image">OnBoarding Image</string>
     <string name="screen_Home">Home</string>
-    <string name="login_screen">LOGIN SCREEN</string>
+    <string name="login_screen">Login</string>
 </resources>

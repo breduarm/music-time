@@ -25,3 +25,4 @@ dependencies {
     implementation(Deps.KOTLIN_GRADLE)
     implementation(Deps.HILT)
 }
+

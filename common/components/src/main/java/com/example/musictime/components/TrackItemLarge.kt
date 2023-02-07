@@ -17,8 +17,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.musictime.theme.colorSecondary
+import com.example.musictime.theme.colorTernary
 import com.example.theme.R
 import com.example.musictime.theme.onBoardingScreenBackgroundColor
+
 
 @Composable
 fun TrackItemLarge() {
@@ -51,7 +54,7 @@ fun TrackItemLarge() {
                     maxLines = 1,
                     fontStyle = MaterialTheme.typography.subtitle1.fontStyle,
                     overflow = TextOverflow.Ellipsis,
-                    color = Color.White
+                    color = colorSecondary
                 )
                 Text(
                     text = "The Strokes",
@@ -59,7 +62,7 @@ fun TrackItemLarge() {
                     fontStyle = MaterialTheme.typography.caption.fontStyle,
                     fontSize = MaterialTheme.typography.caption.fontSize,
                     overflow = TextOverflow.Ellipsis,
-                    color = Color.LightGray.copy(alpha = 0.5f)
+                    color = colorTernary
                 )
             }
         }

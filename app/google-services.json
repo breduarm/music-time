@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "181568377365",
+    "project_id": "crypto-les",
+    "storage_bucket": "crypto-les.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181568377365:android:9518e8153ababd9c15741c",
+        "android_client_info": {
+          "package_name": "com.example.musictime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "181568377365-b2kf2ng16ooc25l0v1v0enggp98aigph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXASY5P8hV8fyOixk2Yk8QZvxZTnY-o5s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "181568377365-b2kf2ng16ooc25l0v1v0enggp98aigph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181568377365:android:415dc38730614e3f15741c",
+        "android_client_info": {
+          "package_name": "com.platzi.android.firestore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "181568377365-b2kf2ng16ooc25l0v1v0enggp98aigph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXASY5P8hV8fyOixk2Yk8QZvxZTnY-o5s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "181568377365-b2kf2ng16ooc25l0v1v0enggp98aigph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,6 +7,8 @@ import androidx.navigation.navigation
 import com.example.musictime.core.Graph
 import com.example.musictime.core.Screen
 import com.example.musictime.login.LoginScreen
+import com.example.musictime.presentation.screens.signup.SignUpScreen
+
 
 fun NavGraphBuilder.authNavGraph(rootNavController: NavHostController) {
     navigation(
@@ -16,5 +18,10 @@ fun NavGraphBuilder.authNavGraph(rootNavController: NavHostController) {
         composable(route = Screen.Login.route) {
             LoginScreen(rootNavController)
         }
+
+        composable(route = Screen.SignUp.route) {
+            SignUpScreen(rootNavController)
+        }
+
     }
 }

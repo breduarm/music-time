@@ -22,6 +22,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+
 @Composable
 fun SearchTrackInputField(
     modifier: Modifier,
@@ -36,6 +37,7 @@ fun SearchTrackInputField(
         onValueChange = { text.value = it },
         placeholder = {
             Text(
+                color = Color.Black,
                 modifier = Modifier.alpha(alpha = ContentAlpha.medium),
                 text = "Search your favourite song",
                 fontWeight = FontWeight.Bold

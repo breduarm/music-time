@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color.Companion.White
 val colorPrimary = Color(0xFF222838)
 val colorSecondary = Color(0xFFFED0D2)
 val colorTernary = Color(0xFFC8F0D6)
+val colorDefault = Color(0xFFe8e8e8)
 
 val Colors.onBoardingScreenBackgroundColor get() = if(isLight) colorPrimary else colorPrimary
 val Colors.titleColor get() = if(isLight) White else White

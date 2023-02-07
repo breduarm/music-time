@@ -6,9 +6,15 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
+import com.example.musictime.data.database.dao.UserDao
+import com.example.musictime.data.database.db.RoomDataBase
 import com.example.musictime.data.database.db.UserDataBase
 import com.example.musictime.data.repository.DataStoreOperationsImpl
+import com.example.musictime.data.server.firebase.FirebaseServices
 import com.example.musictime.domain.repository.DataStoreOperations
+import com.example.musictime.domain.repository.FirebaseRepository
+import com.example.musictime.domain.source.LocalDataSource
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +26,12 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DataModule {
 
-    private const val DATABASE_NAME = "database-music-time"
+     private const val DATABASE_NAME = "database-music-time"
+
+     @Provides
+     @Singleton
+     fun firebaseRepositoryProvider(firebaseServices: FirebaseServices, localDataSource: LocalDataSource) = FirebaseRepository(firebaseServices,localDataSource)
+
 
     @Provides
     @Singleton
@@ -43,5 +54,12 @@ object DataModule {
     fun provideDataStoreOperations(
         dataStore: DataStore<Preferences>
     ): DataStoreOperations = DataStoreOperationsImpl(dataStore = dataStore)
+
+     @Provides
+     fun firebaseServicesProvider(): FirebaseServices = FirebaseServices()
+
+     @Provides
+     fun localDataSource(userDao: UserDao): LocalDataSource = RoomDataBase(userDao)
+
 
 }
