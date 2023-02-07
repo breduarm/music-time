@@ -1,4 +1,4 @@
-package com.example.musictime.data.di
+package com.example.musictime.usecases.di
 
 import com.example.musictime.domain.repository.FirebaseRepository
 import com.example.musictime.usecases.UserUsesCases
@@ -9,9 +9,8 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class GeneralModule {
+object GeneralModule {
 
     @Provides
-    fun userUseCasesProvider(firebaseRepository: FirebaseRepository): com.example.musictime.usecases.UserUsesCases =
-        com.example.musictime.usecases.UserUsesCases(firebaseRepository)
+    fun userUseCasesProvider(firebaseRepository: FirebaseRepository): UserUsesCases = UserUsesCases(firebaseRepository)
 }

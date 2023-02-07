@@ -125,6 +125,15 @@ fun DependencyHandler.addTestDependencies() {
     androidTestImplementation(AndroidTestingLib.EspressoCore)
 }
 
+fun DependencyHandler.addFirebaseDependencies(){
+   // implementation(FirebaseLib.Bom)
+    // implementation(FirebaseLib.Analytics)
+    implementation(FirebaseLib.Authentication)
+    implementation(FirebaseLib.Core)
+    implementation(FirebaseLib.Firestone)
+    implementation(FirebaseLib.Database)
+}
+
 
 fun DependencyHandler.addModuleDependencies() {
     implementation(project(mapOf("path" to ":domain")))

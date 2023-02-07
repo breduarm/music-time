@@ -8,7 +8,7 @@
         android:allowBackup="true"
         android:name=".MusicTime"
         android:icon="@mipmap/ic_music"
-        android:label="@string/app_name"
+        android:label="Music-time"
         android:roundIcon="@mipmap/ic_music_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CustomSplashScreen">

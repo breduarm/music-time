@@ -17,10 +17,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.musictime.presentation.screens.login.LoginViewModel
-import com.example.musictime.presentation.screens.login.NameField
-import com.example.musictime.presentation.screens.login.VersionEnd
-import com.example.musictime.ui.theme.colorPrimary
+import com.example.musictime.login.VersionEnd
+import com.example.musictime.theme.colorPrimary
 
 @Composable
 fun SignUpScreen(

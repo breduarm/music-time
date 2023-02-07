@@ -60,3 +60,14 @@ object AndroidTestingLib {
     const val ComposeTestJunit = "androidx.compose.ui:ui-test-junit4:${Versions.COMPOSE}"
     const val EspressoCore = "androidx.test.espresso:espresso-core:3.4.0"
 }
+
+object FirebaseLib{
+    const val Bom = "com.google.firebase:firebase-bom:31.1.1"
+    const val Analytics = "com.google.firebase:firebase-analytics-ktx"
+    const val Authentication = "com.google.firebase:firebase-auth:21.1.0"
+    const val Core = "com.google.firebase:firebase-core:21.1.1"
+    const val Firestone = "com.google.firebase:firebase-firestore:24.4.1"
+    const val Database = "com.google.firebase:firebase-database:20.1.0"
+}
+
+

@@ -1,4 +1,4 @@
-package com.example.musictime.domain.usecases
+package com.example.musictime.usecases
 
 import com.example.musictime.domain.repository.FirebaseRepository
 

@@ -1,7 +1,7 @@
 package com.example.musictime.presentation.screens.signup
 
 import androidx.lifecycle.ViewModel
-import com.example.musictime.domain.usecases.UserUsesCases
+import com.example.musictime.usecases.UserUsesCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
