@@ -22,6 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.musictime.core.Graph
+import com.example.musictime.core.Screen
 import com.example.musictime.presentation.screens.login.LoginViewModel
 import com.example.musictime.theme.colorPrimary
 import com.example.theme.R
@@ -165,10 +166,8 @@ fun LoginButton(
 ) {
     if (!signUpSwitch) {
         Button(
-            onClick = {
+            onClick = { viewModel.requestLogin()
 
-                val result = viewModel.requestLogin()
-                Log.i("FIREBASE", "LoginButton : $result")
 
 
                 /*
@@ -304,8 +303,8 @@ fun SignUpButton(
         Text(
             text = "Sign up",
             modifier = modifier.clickable {
-                viewModel.onSignUpClick()
-               // rootNavController.navigate(Screen.SignUp.route)
+               // viewModel.onSignUpClick()
+                rootNavController.navigate(Screen.SignUp.route)
             },
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,

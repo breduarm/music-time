@@ -8,6 +8,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlin.properties.Delegates
 
 class FirebaseServices : FirebaseDataSource {
     private val reference = "https://crypto-les-default-rtdb.firebaseio.com/"
@@ -43,21 +44,27 @@ class FirebaseServices : FirebaseDataSource {
             Log.i("FIREBASE", "signUpUserFirebase : onSuccess")
     }
 
-    override suspend fun getUserFirebase(email: String, password: String) {
+
+    override suspend fun getUserFirebase(email: String, password: String, callback: (Boolean)->Unit){
         databaseReference.child(path).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val data = snapshot.children.mapNotNull {
                     it.getValue(User::class.java)
                 }
-                Log.i("FIREBASE", "getUserFirebase : $data")
-                Log.i("FIREBASE", "getUserFirebase [] : ${data.last()}")
+
                 Log.i("FIREBASE", "getUserFirebase size : ${data.size}")
+                for (item in data) {
+                    Log.i("FIREBASE", "item.email : ${item.email}")
+                    Log.i("FIREBASE", "item.email : ${item.password}")
+                    if(item.email == email && item.password == password){
+                        callback(true)
+                        return
+                    }
+
+                }
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.i("FIREBASE", "getUserFirebase : error")
-            }
-
+            override fun onCancelled(error: DatabaseError) { Log.i("FIREBASE", "getUserFirebase : error") }
         })
     }
 

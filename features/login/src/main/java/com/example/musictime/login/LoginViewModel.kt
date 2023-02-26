@@ -47,15 +47,22 @@ class LoginViewModel @Inject constructor (
     private val _loginSuccess = MutableLiveData<Boolean>()
     val loginSuccess : LiveData<Boolean> = _loginSuccess
 
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = userUsesCases.authenticationUserFirebase()
-            Log.i("FIREBASE", "authenticationUserFirebase : $result")
-            val getUser = userUsesCases.getUserFirebase("", "")
-            Log.i("FIREBASE", "getUserFirebase : $getUser")
+    /*
+        init {
 
-        }
-    }
+         viewModelScope.launch(Dispatchers.IO) {
+             val result = userUsesCases.authenticationUserFirebase()
+             Log.i("FIREBASE", "authenticationUserFirebase : $result")
+
+            // val getUser = userUsesCases.getUserFirebase("", "")
+            // Log.i("FIREBASE", "getUserFirebase : $getUser")
+
+         }
+
+
+            }
+      */
+
 
     fun onLoginChanged(email: String, password: String) {
         _email.value = email
