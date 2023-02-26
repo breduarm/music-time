@@ -47,6 +47,9 @@ class LoginViewModel @Inject constructor (
     private val _loginSuccess = MutableLiveData<Boolean>()
     val loginSuccess : LiveData<Boolean> = _loginSuccess
 
+    private val _showProgress = MutableLiveData<Boolean>()
+    val showProgress: LiveData<Boolean> = _showProgress
+
     /*
         init {
 
@@ -96,10 +99,13 @@ class LoginViewModel @Inject constructor (
     }
 
     fun requestLogin() {
+        _showProgress.value = true
+        _loginEnabled.value = false
         viewModelScope.launch(Dispatchers.IO) {
             val result = userUsesCases.loginFirebase(_email.value!!, _password.value!!)
             Log.i("FIREBASE", "loginFirebase : $result")
             _loginSuccess.postValue(result)
+
         }
     }
 

@@ -1,9 +1,7 @@
 package com.example.musictime.login
 
 import android.util.Log
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -60,6 +58,7 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
     val signUpEnabled: Boolean by viewModel.signUpEnabled.observeAsState(initial = false)
     val sigUpSwitch: Boolean by viewModel.signUpSwitch.observeAsState(initial = false)
     val loginSuccess: Boolean by viewModel.loginSuccess.observeAsState(initial = false)
+    val showProgress: Boolean by viewModel.showProgress.observeAsState(initial = false)
     // var auth: FirebaseAuth = FirebaseAuth.getInstance()
     // var firebaseService: FirebaseService = FirebaseService(FirebaseFirestore.getInstance())
     // val databaseReference = FirebaseDatabase.getInstance()
@@ -80,43 +79,19 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
         PasswordField(sigUpSwitch, password) { viewModel.onLoginChanged(email, it) }
         ForgotPasswordButton(sigUpSwitch, Modifier.align(Alignment.End))
         LoginButton(sigUpSwitch, loginEnabled, viewModel, rootNavController, loginSuccess)
+        ShowProgressBar(showProgress, Modifier.align(Alignment.CenterHorizontally))
         SignUpButton(sigUpSwitch, Modifier.align(Alignment.CenterHorizontally), viewModel, rootNavController)
+
+
         /** Sign Up */
         // GetUserData(databaseReference)
-        NameField(sigUpSwitch, name) {
-            viewModel.onSignUpChanged(
-                it,
-                age,
-                emailSignUp,
-                passwordSignUp
-            )
-        }
-        AgeField(sigUpSwitch, age) {
-            viewModel.onSignUpChanged(
-                name,
-                it,
-                emailSignUp,
-                passwordSignUp
-            )
-        }
-        EmailFieldSignUp(sigUpSwitch, emailSignUp) {
-            viewModel.onSignUpChanged(
-                name,
-                age,
-                it,
-                passwordSignUp
-            )
-        }
-        PasswordFieldSignUp(sigUpSwitch, passwordSignUp) {
-            viewModel.onSignUpChanged(
-                name,
-                age,
-                emailSignUp,
-                it
-            )
-        }
+        NameField(sigUpSwitch, name) { viewModel.onSignUpChanged(it, age, emailSignUp, passwordSignUp) }
+        AgeField(sigUpSwitch, age) { viewModel.onSignUpChanged(name, it, emailSignUp, passwordSignUp) }
+        EmailFieldSignUp(sigUpSwitch, emailSignUp) { viewModel.onSignUpChanged(name, age, it, passwordSignUp) }
+        PasswordFieldSignUp(sigUpSwitch, passwordSignUp) { viewModel.onSignUpChanged(name, age, emailSignUp, it) }
         SignUpRegisterButton(sigUpSwitch, signUpEnabled, viewModel)
         LoginBackButton(sigUpSwitch, Modifier.align(Alignment.CenterHorizontally), viewModel)
+
     }
 }
 
@@ -157,6 +132,20 @@ fun GetUserData(databaseReference: DatabaseReference) {
 }
 
 @Composable
+fun ShowProgressBar(showProgress: Boolean, modifier: Modifier) {
+    if(showProgress){
+        Column(
+            modifier = modifier,
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(size = 16.dp),
+                color = Color(0xFFFED0D2)
+            )
+        }
+    }
+}
+
+@Composable
 fun LoginButton(
     signUpSwitch: Boolean,
     loginEnabled: Boolean,
@@ -167,6 +156,7 @@ fun LoginButton(
     if (!signUpSwitch) {
         Button(
             onClick = { viewModel.requestLogin()
+
 
 
 
@@ -218,8 +208,7 @@ fun LoginButton(
             Text(text = "Login")
 
         }
-
-        Spacer(modifier = Modifier.padding(10.dp))
+        Spacer(modifier = Modifier.padding(2.dp))
     }
 }
 
