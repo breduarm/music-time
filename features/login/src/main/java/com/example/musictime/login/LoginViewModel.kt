@@ -1,4 +1,4 @@
-package com.example.musictime.presentation.screens.login
+package com.example.musictime.login
 
 import android.util.Log
 import android.util.Patterns
@@ -28,12 +28,6 @@ class LoginViewModel @Inject constructor (
 
     private val _password = MutableLiveData<String>()
     val password : LiveData<String> = _password
-
-    private val _emailSignUp = MutableLiveData<String>()
-    val emailSignUp : LiveData<String> = _emailSignUp
-
-    private val _passwordSignUp = MutableLiveData<String>()
-    val passwordSignUp : LiveData<String> = _passwordSignUp
 
     private val _loginEnabled = MutableLiveData<Boolean>()
     val loginEnabled : LiveData<Boolean> = _loginEnabled
@@ -65,6 +59,13 @@ class LoginViewModel @Inject constructor (
 
             }
       */
+
+    private val _emailSignUp = MutableLiveData<String>()
+    val emailSignUp : LiveData<String> = _emailSignUp
+
+    private val _passwordSignUp = MutableLiveData<String>()
+    val passwordSignUp : LiveData<String> = _passwordSignUp
+
 
 
     fun onLoginChanged(email: String, password: String) {

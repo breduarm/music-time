@@ -21,7 +21,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.musictime.core.Graph
 import com.example.musictime.core.Screen
-import com.example.musictime.presentation.screens.login.LoginViewModel
 import com.example.musictime.theme.colorPrimary
 import com.example.theme.R
 import com.google.firebase.database.DataSnapshot
@@ -52,8 +51,7 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
     val age: String by viewModel.age.observeAsState(initial = "")
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
-    val emailSignUp: String by viewModel.emailSignUp.observeAsState(initial = "")
-    val passwordSignUp: String by viewModel.passwordSignUp.observeAsState(initial = "")
+
     val loginEnabled: Boolean by viewModel.loginEnabled.observeAsState(initial = false)
     val signUpEnabled: Boolean by viewModel.signUpEnabled.observeAsState(initial = false)
     val sigUpSwitch: Boolean by viewModel.signUpSwitch.observeAsState(initial = false)
@@ -85,12 +83,15 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
 
         /** Sign Up */
         // GetUserData(databaseReference)
+        /*
         NameField(sigUpSwitch, name) { viewModel.onSignUpChanged(it, age, emailSignUp, passwordSignUp) }
         AgeField(sigUpSwitch, age) { viewModel.onSignUpChanged(name, it, emailSignUp, passwordSignUp) }
         EmailFieldSignUp(sigUpSwitch, emailSignUp) { viewModel.onSignUpChanged(name, age, it, passwordSignUp) }
         PasswordFieldSignUp(sigUpSwitch, passwordSignUp) { viewModel.onSignUpChanged(name, age, emailSignUp, it) }
         SignUpRegisterButton(sigUpSwitch, signUpEnabled, viewModel)
         LoginBackButton(sigUpSwitch, Modifier.align(Alignment.CenterHorizontally), viewModel)
+
+         */
 
     }
 }

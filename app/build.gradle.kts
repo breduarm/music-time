@@ -99,4 +99,5 @@ dependencies {
     kapt(DaggerHiltLib.Compiler)
     implementation(DaggerHiltLib.Compose)
     kapt("androidx.hilt:hilt-compiler:1.0.0")
+    implementation ("androidx.compose.runtime:runtime-livedata:1.3.2")
 }
