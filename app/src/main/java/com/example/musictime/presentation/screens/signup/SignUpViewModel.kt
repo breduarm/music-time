@@ -32,25 +32,31 @@ class SignUpViewModel @Inject constructor(
     private val _signUpEnabled = MutableLiveData<Boolean>()
     val signUpEnabled : LiveData<Boolean> = _signUpEnabled
 
-    fun onSignUpChanged(name: String, age: String, email: String, password: String) {
+    private val _showProgress = MutableLiveData<Boolean>()
+    val showProgress: LiveData<Boolean> = _showProgress
+
+    private val _signupSuccess = MutableLiveData<Boolean>()
+    val signupSuccess : LiveData<Boolean> = _signupSuccess
+
+    fun onSignUpChanged(name: String, email: String, password: String) {
         _name.value = name
-        _age.value = age
         _emailSignUp.value = email
         _passwordSignUp.value = password
-        _signUpEnabled.value = isValidName(name) && isValidAge(age) && isValidEmail(email) && isValidPassword(password)
+        _signUpEnabled.value = isValidName(name)  && isValidEmail(email) && isValidPassword(password)
     }
 
     private fun isValidName(name: String): Boolean = name.length > 2
-    private fun isValidAge(age: String): Boolean = age.length >= 2
     private fun isValidEmail(email: String): Boolean = Patterns.EMAIL_ADDRESS.matcher(email).matches()
     private fun isValidPassword(password: String): Boolean = password.length >= 6
     fun onLoginBackClick() { _signUpEnabled.value = false }
 
     fun requestSignUp(){
+        _showProgress.value = true
+        _signupSuccess.value = false
         viewModelScope.launch(Dispatchers.IO) {
-            val result = userUsesCases.signUpUserFirebase(_name.value!!, _age.value!!, _emailSignUp.value!!, _passwordSignUp.value!!)
+            val result = userUsesCases.signUpUserFirebase(_name.value!!, "Default", _emailSignUp.value!!, _passwordSignUp.value!!)
             Log.i("FIREBASE", "signUpUserFirebase : $result")
-
+            _signupSuccess.postValue(result)
         }
     }
 

@@ -37,10 +37,11 @@ class FirebaseServices : FirebaseDataSource {
         }
     }
 
-    override suspend fun signUpUserFirebase(name: String, age: String, email: String, password: String) {
+    override suspend fun signUpUserFirebase(name: String, age: String, email: String, password: String, callback: (Boolean)->Unit) {
             val id = databaseReference.push().key
             val user = id?.let { User(it, name, age, email, password) }
             databaseReference.child(path).child(id.toString()).setValue(user)
+            callback(true)
             Log.i("FIREBASE", "signUpUserFirebase : onSuccess")
     }
 

@@ -5,7 +5,6 @@ import com.example.musictime.domain.User
 import com.example.musictime.domain.source.FirebaseDataSource
 import com.example.musictime.domain.source.LocalDataSource
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.callbackFlow
 import kotlin.properties.Delegates
 
 class FirebaseRepository(
@@ -13,23 +12,32 @@ class FirebaseRepository(
     private val localDataSource: LocalDataSource
 ) {
 
-   private var myVariableName by Delegates.observable(false) { property, oldValue, newValue ->
+   private var loginSuccess by Delegates.observable(false) { property, oldValue, newValue ->
          //Log.d("FIREBASE","New Value $newValue")
          //Log.d("FIREBASE","Old Value $oldValue")
     }
 
+    private var signupSuccess by Delegates.observable(false) { property, oldValue, newValue ->
+        //Log.d("FIREBASE","New Value $newValue")
+        //Log.d("FIREBASE","Old Value $oldValue")
+    }
+
     suspend fun authenticationUserFirebase() = firebaseDataSource.authenticationUserFirebase()
 
-    suspend fun signUpUserFirebase(name: String, age: String, email: String, password: String) {
+    suspend fun signUpUserFirebase(name: String, age: String, email: String, password: String) : Boolean {
         val user = User(name = name, age = age, email = email, password = password)
-        val userSave = localDataSource.saveUser(user).run { firebaseDataSource.signUpUserFirebase(name, age, email, password) }
-        Log.i("FIREBASE", "saveUser : $userSave")
+                success -> signupSuccess = success
+                Log.i("FIREBASE", "saveUser -> success : $success")
+            }
+        }
+        delay(3000)
+        return signupSuccess
     }
 
 
     suspend fun getUserFirebase(email: String, password: String) = firebaseDataSource.getUserFirebase(email, password){ id ->
         Log.i("FIREBASE", "id : $id")
-        myVariableName = id
+        loginSuccess = id
     }
 
     suspend fun loginFirebase(email: String, password: String): Boolean {
@@ -44,7 +52,7 @@ class FirebaseRepository(
         } else {
             getUserFirebase(email, password)
             delay(3000)
-            return myVariableName
+            return loginSuccess
         }
 
     }

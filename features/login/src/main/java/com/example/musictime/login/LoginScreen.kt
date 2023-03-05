@@ -54,7 +54,7 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
 
     val loginEnabled: Boolean by viewModel.loginEnabled.observeAsState(initial = false)
     val signUpEnabled: Boolean by viewModel.signUpEnabled.observeAsState(initial = false)
-    val sigUpSwitch: Boolean by viewModel.signUpSwitch.observeAsState(initial = false)
+   // val sigUpSwitch: Boolean by viewModel.signUpSwitch.observeAsState(initial = false)
     val loginSuccess: Boolean by viewModel.loginSuccess.observeAsState(initial = false)
     val showProgress: Boolean by viewModel.showProgress.observeAsState(initial = false)
     // var auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -67,18 +67,17 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
             rootNavController.popBackStack()
             rootNavController.navigate(Graph.BOTTOM)
         }
-
     }
 
     Column(modifier = modifier) {
         /** Login */
         HeaderImage(Modifier.align(Alignment.CenterHorizontally))
-        EmailField(sigUpSwitch, email) { viewModel.onLoginChanged(it, password) }
-        PasswordField(sigUpSwitch, password) { viewModel.onLoginChanged(email, it) }
-        ForgotPasswordButton(sigUpSwitch, Modifier.align(Alignment.End))
-        LoginButton(sigUpSwitch, loginEnabled, viewModel, rootNavController, loginSuccess)
+        EmailField(email) { viewModel.onLoginChanged(it, password) }
+        PasswordField(password) { viewModel.onLoginChanged(email, it) }
+        ForgotPasswordButton(Modifier.align(Alignment.End))
+        LoginButton(loginEnabled, viewModel)
         ShowProgressBar(showProgress, Modifier.align(Alignment.CenterHorizontally))
-        SignUpButton(sigUpSwitch, Modifier.align(Alignment.CenterHorizontally), viewModel, rootNavController)
+        SignUpButton(Modifier.align(Alignment.CenterHorizontally), rootNavController)
 
 
         /** Sign Up */
@@ -148,105 +147,63 @@ fun ShowProgressBar(showProgress: Boolean, modifier: Modifier) {
 
 @Composable
 fun LoginButton(
-    signUpSwitch: Boolean,
     loginEnabled: Boolean,
-    viewModel: LoginViewModel,
-    rootNavController: NavHostController,
-    loginSuccess: Boolean
+    viewModel: LoginViewModel
 ) {
-    if (!signUpSwitch) {
-        Button(
-            onClick = { viewModel.requestLogin()
+    Button(
+        onClick = { viewModel.requestLogin()
 
 
 
 
-                /*
-                if(loginSuccess){
-                    rootNavController.popBackStack()
-                    rootNavController.navigate(Graph.BOTTOM)
+            /*
+            if(loginSuccess){
+                rootNavController.popBackStack()
+                rootNavController.navigate(Graph.BOTTOM)
 
+            }
+
+             */
+
+            /*
+            auth.signInAnonymously()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.i("LOGIN", "auth : isSuccessful")
+                        //val user = User()
+                        //user.username = name
+                        //saveUser(user, firebaseService, rootNavController)
+
+                        val id = databaseReference.push().key
+                        val user = Users(id, name, "les@gmail.com")
+                        databaseReference.child("db_users").child(id.toString()).setValue(user)
+                        Log.i("LOGIN", "firebaseService : onSuccess")
+                        rootNavController.popBackStack()
+                        rootNavController.navigate(Graph.BOTTOM)
+
+                    } else {
+                        Log.i("LOGIN", "auth : error")
+                    }
                 }
 
-                 */
-
-                /*
-                auth.signInAnonymously()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Log.i("LOGIN", "auth : isSuccessful")
-                            //val user = User()
-                            //user.username = name
-                            //saveUser(user, firebaseService, rootNavController)
-
-                            val id = databaseReference.push().key
-                            val user = Users(id, name, "les@gmail.com")
-                            databaseReference.child("db_users").child(id.toString()).setValue(user)
-                            Log.i("LOGIN", "firebaseService : onSuccess")
-                            rootNavController.popBackStack()
-                            rootNavController.navigate(Graph.BOTTOM)
-
-                        } else {
-                            Log.i("LOGIN", "auth : error")
-                        }
-                    }
-
-                 */
-                //rootNavController.popBackStack()
-                //rootNavController.navigate(Graph.BOTTOM)
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(0xFFC8F0D6),
-                disabledBackgroundColor = Color(0x8BC8F0D6),
-                contentColor = Color(0xFF222838),
-                disabledContentColor = Color(0xFF222838)
-            ),
-            enabled = loginEnabled
-        ) {
-            Text(text = "Login")
-
-        }
-        Spacer(modifier = Modifier.padding(2.dp))
+             */
+            //rootNavController.popBackStack()
+            //rootNavController.navigate(Graph.BOTTOM)
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(48.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color(0xFFC8F0D6),
+            disabledBackgroundColor = Color(0x8BC8F0D6),
+            contentColor = Color(0xFF222838),
+            disabledContentColor = Color(0xFF222838)
+        ),
+        enabled = loginEnabled
+    ) {
+        Text(text = "Login")
     }
-}
-
-@Composable
-fun SignUpRegisterButton(signUpSwitch: Boolean, signUpEnabled: Boolean, viewModel: LoginViewModel) {
-    if (signUpSwitch) {
-        Button(
-            onClick = { viewModel.requestSignUp() },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(0xFFC8F0D6),
-                disabledBackgroundColor = Color(0x8BC8F0D6),
-                contentColor = Color(0xFF222838),
-                disabledContentColor = Color(0xFF222838)
-            ),
-            enabled = signUpEnabled
-        ) {
-            Text(text = "Sign Up")
-        }
-
-        Spacer(modifier = Modifier.padding(10.dp))
-    }
-}
-
-@Composable
-fun LoginBackButton(signUpEnabled: Boolean, modifier: Modifier, viewModel: LoginViewModel) {
-    if (signUpEnabled) {
-        Text(
-            text = "Login",
-            modifier = modifier.clickable { viewModel.onLoginBackClick() },
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.White
-        )
-    }
+    Spacer(modifier = Modifier.padding(8.dp))
 }
 
 @Composable
@@ -283,29 +240,19 @@ fun saveUser(user: User, firebaseService: FirebaseService, rootNavController: Na
  */
 
 @Composable
-fun SignUpButton(
-    signUpEnabled: Boolean,
-    modifier: Modifier,
-    viewModel: LoginViewModel,
-    rootNavController: NavHostController
+fun SignUpButton(modifier: Modifier, rootNavController: NavHostController
 ) {
-    if (!signUpEnabled) {
-        Text(
-            text = "Sign up",
-            modifier = modifier.clickable {
-               // viewModel.onSignUpClick()
-                rootNavController.navigate(Screen.SignUp.route)
-            },
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.White
-        )
-    }
+    Text(
+        text = "Sign up",
+        modifier = modifier.clickable { rootNavController.navigate(Screen.SignUp.route) },
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Bold,
+        color = Color.White
+    )
 }
 
 @Composable
-fun ForgotPasswordButton(signUpEnabled: Boolean, modifier: Modifier) {
-    if (!signUpEnabled) {
+fun ForgotPasswordButton(modifier: Modifier) {
         Text(
             text = "Forgot Password?",
             modifier = modifier.clickable { },
@@ -314,12 +261,10 @@ fun ForgotPasswordButton(signUpEnabled: Boolean, modifier: Modifier) {
             color = Color.White
         )
         Spacer(modifier = Modifier.padding(16.dp))
-    }
 }
 
 @Composable
-fun EmailField(signUpEnabled: Boolean, email: String, onTextFieldChanged: (String) -> Unit) {
-    if (!signUpEnabled) {
+fun EmailField(email: String, onTextFieldChanged: (String) -> Unit) {
         TextField(
             value = email,
             onValueChange = { onTextFieldChanged(it) },
@@ -337,12 +282,10 @@ fun EmailField(signUpEnabled: Boolean, email: String, onTextFieldChanged: (Strin
         )
 
         Spacer(modifier = Modifier.padding(8.dp))
-    }
 }
 
 @Composable
-fun PasswordField(signUpEnabled: Boolean, password: String, onTextFieldChanged: (String) -> Unit) {
-    if (!signUpEnabled) {
+fun PasswordField(password: String, onTextFieldChanged: (String) -> Unit) {
         TextField(
             value = password,
             onValueChange = { onTextFieldChanged(it) },
@@ -360,7 +303,6 @@ fun PasswordField(signUpEnabled: Boolean, password: String, onTextFieldChanged: 
         )
 
         Spacer(modifier = Modifier.padding(8.dp))
-    }
 }
 
 
@@ -468,8 +410,8 @@ fun HeaderImage(modifier: Modifier) {
         contentDescription = "Header",
         modifier = modifier
             .fillMaxWidth()
-            .width(200.dp)
-            .height(200.dp),
+            .width(150.dp)
+            .height(150.dp),
     )
 }
 
