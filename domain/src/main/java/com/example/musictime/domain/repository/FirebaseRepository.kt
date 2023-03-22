@@ -52,16 +52,11 @@ class FirebaseRepository(
 
             if(user == null) localDataSource.saveUser(User(email = email, password = password))
 
-            delay(3000)
+            delay(4000)
+            if(loginSuccess)
+                localDataSource.saveUser(User(email = email, password = password, isLogged = true))
             return loginSuccess
         }
-
-
-
-
-
-
-
     }
 
     suspend fun getUserLogged() : User = localDataSource.getUserLogged()!!

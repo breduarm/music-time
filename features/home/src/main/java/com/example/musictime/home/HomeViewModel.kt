@@ -17,15 +17,15 @@ class HomeViewModel @Inject constructor(
     private val userUsesCases: UserUsesCases,
 
 ): ViewModel()  {
-
-
     var name by mutableStateOf(""); private set
+    var email by mutableStateOf(""); private set
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val user = userUsesCases.getUserLogged()
             Log.i("FIREBASE", "HomeViewModel - user : $user")
+            name = if(user.name.isEmpty()) "User" else user.name
+            email = user.email
         }
     }
-
 }

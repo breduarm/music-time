@@ -59,7 +59,7 @@ fun HomeScreen(
             }
                  },
         drawerContent = {
-            Drawer (name = viewModel.name){
+            Drawer (name = viewModel.name, email = viewModel.email){
                 coroutineScope.launch {
                     delay(250)
                     scaffoldState.drawerState.close()
@@ -75,6 +75,7 @@ fun HomeScreen(
 fun Drawer(
     gradientColors: List<Color> = listOf(colorPrimary, colorSecondary),
     name: String,
+    email:String,
     onClick: () -> Unit,
 ) {
     val navigationDrawerItems = listOf(
@@ -111,7 +112,7 @@ fun Drawer(
             color = Color.White
         )
         Text(
-            text = "tavidanner96@gmail.com",
+            text = email,
             fontStyle = MaterialTheme.typography.subtitle2.fontStyle,
             fontSize = MaterialTheme.typography.subtitle2.fontSize,
             color = Color.LightGray.copy(alpha = 0.5f)
