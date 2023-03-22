@@ -55,8 +55,8 @@ class FirebaseServices : FirebaseDataSource {
 
                 Log.i("FIREBASE", "getUserFirebase size : ${data.size}")
                 for (item in data) {
-                    Log.i("FIREBASE", "item.email : ${item.email}")
-                    Log.i("FIREBASE", "item.email : ${item.password}")
+                    //Log.i("FIREBASE", "item.email : ${item.email}")
+                    //Log.i("FIREBASE", "item.email : ${item.password}")
                     if(item.email == email && item.password == password){
                         callback(true)
                         return

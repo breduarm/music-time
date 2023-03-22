@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
@@ -31,10 +34,15 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeScreen(
     paddingValues: PaddingValues,
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
+
+    val a = viewModel.name
+
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -51,7 +59,7 @@ fun HomeScreen(
             }
                  },
         drawerContent = {
-            Drawer {
+            Drawer (name = viewModel.name){
                 coroutineScope.launch {
                     delay(250)
                     scaffoldState.drawerState.close()
@@ -66,13 +74,15 @@ fun HomeScreen(
 @Composable
 fun Drawer(
     gradientColors: List<Color> = listOf(colorPrimary, colorSecondary),
-    onClick: () -> Unit
+    name: String,
+    onClick: () -> Unit,
 ) {
     val navigationDrawerItems = listOf(
         NavigationDrawerItem.Payments,
         NavigationDrawerItem.Settings,
         NavigationDrawerItem.Logout
     )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -95,7 +105,7 @@ fun Drawer(
         )
         Text(
             modifier = Modifier.padding(top = 8.dp),
-            text = "Tavi Manrique",
+            text = name,
             fontStyle = MaterialTheme.typography.subtitle1.fontStyle,
             fontSize = MaterialTheme.typography.subtitle1.fontSize,
             color = Color.White

@@ -12,20 +12,16 @@ class FirebaseRepository(
     private val localDataSource: LocalDataSource
 ) {
 
-   private var loginSuccess by Delegates.observable(false) { property, oldValue, newValue ->
-         //Log.d("FIREBASE","New Value $newValue")
-         //Log.d("FIREBASE","Old Value $oldValue")
-    }
+   private var loginSuccess by Delegates.observable(false) { property, oldValue, newValue -> }
 
-    private var signupSuccess by Delegates.observable(false) { property, oldValue, newValue ->
-        //Log.d("FIREBASE","New Value $newValue")
-        //Log.d("FIREBASE","Old Value $oldValue")
-    }
+    private var signupSuccess by Delegates.observable(false) { property, oldValue, newValue -> }
 
     suspend fun authenticationUserFirebase() = firebaseDataSource.authenticationUserFirebase()
 
     suspend fun signUpUserFirebase(name: String, age: String, email: String, password: String) : Boolean {
         val user = User(name = name, age = age, email = email, password = password)
+        localDataSource.saveUser(user).run {
+            firebaseDataSource.signUpUserFirebase(name, age, email, password) {
                 success -> signupSuccess = success
                 Log.i("FIREBASE", "saveUser -> success : $success")
             }
@@ -41,9 +37,11 @@ class FirebaseRepository(
     }
 
     suspend fun loginFirebase(email: String, password: String): Boolean {
+        val user = localDataSource.getUserLogged()
         val userLocalEmail = localDataSource.getUserByEmail(email)
         val userLocalPassword = localDataSource.getUserByPassword(password)
 
+        Log.i("FIREBASE", "user : $user")
         Log.i("FIREBASE", "userLocalEmail : $userLocalEmail")
         Log.i("FIREBASE", "userLocalPassword : $userLocalPassword")
 
@@ -51,9 +49,20 @@ class FirebaseRepository(
             return true
         } else {
             getUserFirebase(email, password)
+
+            if(user == null) localDataSource.saveUser(User(email = email, password = password))
+
             delay(3000)
             return loginSuccess
         }
 
+
+
+
+
+
+
     }
+
+    suspend fun getUserLogged() : User = localDataSource.getUserLogged()!!
 }
