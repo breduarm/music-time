@@ -46,6 +46,7 @@ class FirebaseRepository(
         Log.i("FIREBASE", "userLocalPassword : $userLocalPassword")
 
         if(userLocalEmail != null && userLocalPassword != null){
+            localDataSource.saveUser(User(isLogged = true))
             return true
         } else {
             getUserFirebase(email, password)

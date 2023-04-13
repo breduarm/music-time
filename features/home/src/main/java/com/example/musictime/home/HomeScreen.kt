@@ -40,9 +40,6 @@ fun HomeScreen(
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
 
-    val a = viewModel.name
-
-
     Scaffold(
         modifier = Modifier
             .fillMaxSize()

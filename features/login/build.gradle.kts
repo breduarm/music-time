@@ -8,6 +8,7 @@ plugins {
 }
 
 dependencies {
+    DOMAIN
     THEME
     CORE
     COMPONENTS

@@ -60,9 +60,10 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, rootNavController: NavH
      */
 
     when(loginSuccess){
-        0-> { LaunchedEffect(key1 = loginSuccess) {
-            rootNavController.popBackStack()
-            rootNavController.navigate(Graph.BOTTOM)
+        0-> {
+            LaunchedEffect(key1 = loginSuccess) {
+                rootNavController.popBackStack()
+                rootNavController.navigate(Graph.BOTTOM)
             }
         }
         1-> {
