@@ -17,11 +17,6 @@ fun NavGraphBuilder.welcomeNavGraph(
         route = Graph.WELCOME,
         startDestination = Screen.OnBoarding.route
     ) {
-
-        composable(route = Screen.Login.route){
-
-        }
-
         onBoardingRoute(
             navigateToAuth = {
                 rootNavController.popBackStack()

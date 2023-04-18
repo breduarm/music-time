@@ -12,9 +12,8 @@ class FirebaseRepository(
     private val localDataSource: LocalDataSource
 ) {
 
-   private var loginSuccess by Delegates.observable(false) { property, oldValue, newValue -> }
-
-    private var signupSuccess by Delegates.observable(false) { property, oldValue, newValue -> }
+    private var loginSuccess by Delegates.observable(false) { _, _, _ -> }
+    private var signupSuccess by Delegates.observable(false) { _, _, _ -> }
 
     suspend fun authenticationUserFirebase() = firebaseDataSource.authenticationUserFirebase()
 
@@ -60,5 +59,6 @@ class FirebaseRepository(
         }
     }
 
-    suspend fun getUserLogged() : User = localDataSource.getUserLogged()!!
+    suspend fun getUserLogged(): User = localDataSource.getUserLogged()!!
+    suspend fun saveUserInDB(user: User) = localDataSource.saveUser(user)
 }

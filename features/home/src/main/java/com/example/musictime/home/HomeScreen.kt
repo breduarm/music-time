@@ -58,6 +58,7 @@ fun HomeScreen(
         drawerContent = {
             Drawer (name = viewModel.name, email = viewModel.email){
                 coroutineScope.launch {
+                    viewModel.onLogout()
                     delay(250)
                     scaffoldState.drawerState.close()
                 }

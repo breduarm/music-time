@@ -11,4 +11,5 @@ class UserUsesCases(
     suspend fun getUserFirebase(email: String, password: String) = firebaseRepository.getUserFirebase(email, password)
     suspend fun loginFirebase(email: String, password: String) = firebaseRepository.loginFirebase(email, password)
     suspend fun getUserLogged(): User = firebaseRepository.getUserLogged()
+    suspend fun saveUserInDB(user: User) = firebaseRepository.saveUserInDB(user)
 }
