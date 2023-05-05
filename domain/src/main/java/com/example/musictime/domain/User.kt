@@ -6,6 +6,6 @@ data class User(
     val age: String = "",
     val email: String = "",
     val password: String = "",
-    val isLogged: Boolean = false,
+    var isLogged: Boolean = false,
     var lastInitSession: String = "",
 )

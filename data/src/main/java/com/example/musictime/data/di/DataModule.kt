@@ -32,7 +32,6 @@ object DataModule {
      @Singleton
      fun firebaseRepositoryProvider(firebaseServices: FirebaseServices, localDataSource: LocalDataSource) = FirebaseRepository(firebaseServices,localDataSource)
 
-
     @Provides
     @Singleton
     fun dataBaseProvider(@ApplicationContext context: Context) = Room.databaseBuilder(context, UserDataBase::class.java, DATABASE_NAME).build()

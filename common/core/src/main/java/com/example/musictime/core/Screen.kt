@@ -7,7 +7,6 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class Screen(val route: String) {
-
     object OnBoarding: Screen("onboarding_screen")
     object Login: Screen("login_screen")
     object SignUp: Screen("signup_screen")
@@ -15,7 +14,6 @@ sealed class Screen(val route: String) {
     object Favourites: Screen("favourites_screen")
     object MusicPlayer: Screen("music_player_screen")
     object Details: Screen("details_screen")
-
 }
 
 sealed class BottomBarScreen(

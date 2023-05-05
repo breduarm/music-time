@@ -1,4 +1,4 @@
-package com.example.musictime.presentation.screens.login
+package com.example.musictime.login
 
 import android.util.Log
 import android.util.Patterns
@@ -29,33 +29,17 @@ class LoginViewModel @Inject constructor (
     private val _password = MutableLiveData<String>()
     val password : LiveData<String> = _password
 
-    private val _emailSignUp = MutableLiveData<String>()
-    val emailSignUp : LiveData<String> = _emailSignUp
-
-    private val _passwordSignUp = MutableLiveData<String>()
-    val passwordSignUp : LiveData<String> = _passwordSignUp
-
     private val _loginEnabled = MutableLiveData<Boolean>()
     val loginEnabled : LiveData<Boolean> = _loginEnabled
 
     private val _signUpEnabled = MutableLiveData<Boolean>()
     val signUpEnabled : LiveData<Boolean> = _signUpEnabled
 
-    private val _signUpSwitch = MutableLiveData<Boolean>()
-    val signUpSwitch : LiveData<Boolean> = _signUpSwitch
+    private val _loginSuccess = MutableLiveData<Int>()
+    val loginSuccess : LiveData<Int> = _loginSuccess
 
-    private val _loginSuccess = MutableLiveData<Boolean>()
-    val loginSuccess : LiveData<Boolean> = _loginSuccess
-
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = userUsesCases.authenticationUserFirebase()
-            Log.i("FIREBASE", "authenticationUserFirebase : $result")
-            val getUser = userUsesCases.getUserFirebase("", "")
-            Log.i("FIREBASE", "getUserFirebase : $getUser")
-
-        }
-    }
+    private val _showProgress = MutableLiveData<Boolean>()
+    val showProgress: LiveData<Boolean> = _showProgress
 
     fun onLoginChanged(email: String, password: String) {
         _email.value = email
@@ -63,41 +47,23 @@ class LoginViewModel @Inject constructor (
         _loginEnabled.value = isValidEmail(email) && isValidPassword(password)
     }
 
-    fun onSignUpChanged(name: String, age: String, email: String, password: String) {
-        _name.value = name
-        _age.value = age
-        _emailSignUp.value = email
-        _passwordSignUp.value = password
-        _signUpEnabled.value = isValidName(name) && isValidAge(age) && isValidEmail(email) && isValidPassword(password)
-    }
-
-    fun onSignUpClick(){ _signUpSwitch.value = true }
-
-    fun onLoginBackClick() { _signUpSwitch.value = false }
-
-    private fun isValidName(name: String): Boolean = name.length > 2
-    private fun isValidAge(age: String): Boolean = age.length >= 2
     private fun isValidEmail(email: String): Boolean = Patterns.EMAIL_ADDRESS.matcher(email).matches()
     private fun isValidPassword(password: String): Boolean = password.length >= 6
 
-    fun requestSignUp(){
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = userUsesCases.signUpUserFirebase(_name.value!!, _age.value!!, _emailSignUp.value!!, _passwordSignUp.value!!)
-            Log.i("FIREBASE", "signUpUserFirebase : $result")
-
-        }
-    }
-
     fun requestLogin() {
+        _showProgress.value = true
+        _loginEnabled.value = false
         viewModelScope.launch(Dispatchers.IO) {
             val result = userUsesCases.loginFirebase(_email.value!!, _password.value!!)
             Log.i("FIREBASE", "loginFirebase : $result")
-            _loginSuccess.postValue(result)
+            if(result) _loginSuccess.postValue(0)
+            else {
+                _showProgress.postValue(false)
+                _loginEnabled.postValue(true)
+                _loginSuccess.postValue(1)
+            }
+
         }
+        //_loginSuccess.postValue(-1)
     }
-
-
-
-
-
 }
