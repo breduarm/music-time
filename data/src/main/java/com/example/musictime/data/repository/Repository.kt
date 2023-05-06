@@ -7,8 +7,6 @@ import javax.inject.Inject
 class Repository @Inject constructor(
     private val dataStoreOperations: DataStoreOperations
 ) {
-
     suspend fun saveOnBoardingPageState(completed: Boolean) { dataStoreOperations.saveOnBoardingPageState(completed) }
     fun readOnBoardingPageState(): Flow<Boolean> = dataStoreOperations.readOnBoardingPageState()
-
 }

@@ -22,7 +22,6 @@ import com.example.musictime.theme.colorTernary
 import com.example.theme.R
 import com.example.musictime.theme.onBoardingScreenBackgroundColor
 
-
 @Composable
 fun TrackItemLarge() {
     Row(

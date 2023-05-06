@@ -20,9 +20,7 @@ class DataStoreOperationsImpl @Inject constructor(
         val onBoardingPageKey = booleanPreferencesKey(name = "on_boarding_page_completed")//PREFERENCES_ON_BOARDING_PAGE_KEY
     }
     override suspend fun saveOnBoardingPageState(completed: Boolean) {
-        dataStore.edit { preferences ->
-            preferences[PreferencesKey.onBoardingPageKey] = completed
-        }
+        dataStore.edit { preferences -> preferences[PreferencesKey.onBoardingPageKey] = completed }
     }
 
     override fun readOnBoardingPageState(): Flow<Boolean> {
@@ -35,9 +33,6 @@ class DataStoreOperationsImpl @Inject constructor(
                     throw it
                 }
             }
-            .map { preferences ->
-                preferences[PreferencesKey.onBoardingPageKey] ?: false
-            }
+            .map { preferences -> preferences[PreferencesKey.onBoardingPageKey] ?: false }
     }
-
 }

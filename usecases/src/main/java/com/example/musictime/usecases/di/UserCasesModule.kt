@@ -1,21 +1,16 @@
 package com.example.musictime.usecases.di
 
-import android.content.Context
-import com.example.musictime.data.repository.DataStoreOperationsImpl
 import com.example.musictime.data.repository.Repository
-import com.example.musictime.domain.repository.DataStoreOperations
-import com.example.musictime.usecases.UseCases
+import com.example.musictime.usecases.UserUsesCases
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import java.util.prefs.Preferences
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object UseCasesModule {
+object UserCasesModule {
 
     /*
     @Provides
@@ -39,8 +34,8 @@ object UseCasesModule {
     @Singleton
     fun provideUseCase(
         repository: Repository
-    ): UseCases =
-        UseCases(
+    ): UserUsesCases =
+        UserUsesCases(
             saveOnBoardingPageUseCase = com.example.musictime.usecases.data_store.SaveOnBoardingPageUseCase(
                 repository
             ),
