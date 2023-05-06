@@ -30,8 +30,8 @@ class RoomDataBase @Inject constructor(
 
     override fun deleteUser(user: User) = userDao.deleteUser(user.toEntityDB())
 
-    override suspend fun getUserLogged(): User? {
-        return userDao.getUserLogged()?.toDomainModel()
+    override suspend fun getUserLogged(): User {
+        return userDao.getUserLogged()?.toDomainModel() ?: User(id = "", name = "", age = "", password = "", email = "", isLogged = false)
     }
 
     override suspend fun getUserByEmail(email: String): User? {
