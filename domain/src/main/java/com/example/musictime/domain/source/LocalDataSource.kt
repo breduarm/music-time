@@ -1,7 +1,6 @@
 package com.example.musictime.domain.source
 
 import com.example.musictime.domain.User
-import com.example.musictime.domain.Result
 
 interface LocalDataSource {
     fun users(): List<User>

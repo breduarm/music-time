@@ -25,9 +25,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen().setKeepOnScreenCondition {
-            !splashViewModel.isLoading
-        }
+        installSplashScreen().setKeepOnScreenCondition { !splashViewModel.isLoading }
 
         setContent {
             MusictimeTheme {

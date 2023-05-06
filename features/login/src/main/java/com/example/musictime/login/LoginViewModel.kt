@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.musictime.usecases.UserUsesCases
+import com.example.musictime.usecases.AuthenticationUsesCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor (
-    private val userUsesCases: UserUsesCases,
+    private val authenticationUsesCases: AuthenticationUsesCases,
     ): ViewModel() {
 
     private val _name = MutableLiveData<String>()
@@ -54,7 +54,7 @@ class LoginViewModel @Inject constructor (
         _showProgress.value = true
         _loginEnabled.value = false
         viewModelScope.launch(Dispatchers.IO) {
-            val result = userUsesCases.loginFirebase(_email.value!!, _password.value!!)
+            val result = authenticationUsesCases.loginFirebase(_email.value!!, _password.value!!)
             Log.i("FIREBASE", "loginFirebase : $result")
             if(result) _loginSuccess.postValue(0)
             else {

@@ -2,7 +2,7 @@ package com.example.musictime.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.musictime.usecases.UseCases
+import com.example.musictime.usecases.UserUsesCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -10,11 +10,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OnBoardingViewModel @Inject constructor(
-    private val useCases: UseCases
+    private val userUsesCases: UserUsesCases
 ): ViewModel() {
+
     fun saveOnBoardingPageState(completed: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            useCases.saveOnBoardingPageUseCase(completed = completed)
+            userUsesCases.saveOnBoardingPageUseCase(completed = completed)
         }
     }
 }

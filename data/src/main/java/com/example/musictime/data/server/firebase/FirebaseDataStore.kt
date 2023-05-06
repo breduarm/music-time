@@ -18,24 +18,15 @@ class FirebaseServices : FirebaseDataSource {
     private val path = "db_users"
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl(reference)
-    private lateinit var localDataSource: LocalDataSource
 
-    override suspend fun authenticationUserFirebase() {
-        auth.signInAnonymously().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Log.i("FIREBASE", "authenticationUserFirebase : isSuccessful")
-            } else {
-                Log.i("FIREBASE", "authenticationUserFirebase : error")
-            }
-        }
-    }
+    override suspend fun authenticationUserFirebase() { auth.signInAnonymously().addOnCompleteListener { } }
 
     override suspend fun signUpUserFirebase(name: String, age: String, email: String, password: String, callback: (Boolean)->Unit) {
             val id = databaseReference.push().key
             val user = id?.let { User(it, name, age, email, password) }
             databaseReference.child(path).child(id.toString()).setValue(user)
             callback(true)
-            Log.i("FIREBASE", "signUpUserFirebase : onSuccess")
+//            Log.i("FIREBASE", "signUpUserFirebase : onSuccess")
     }
 
 
@@ -45,11 +36,10 @@ class FirebaseServices : FirebaseDataSource {
                 val data = snapshot.children.mapNotNull {
                     it.getValue(User::class.java)
                 }
-
-                Log.i("FIREBASE", "getUserFirebase size : ${data.size}")
+//                Log.i("FIREBASE", "getUserFirebase size : ${data.size}")
                 for (item in data) {
-                    //Log.i("FIREBASE", "item.email : ${item.email}")
-                    //Log.i("FIREBASE", "item.email : ${item.password}")
+//                    Log.i("FIREBASE", "item.email : ${item.email}")
+//                    Log.i("FIREBASE", "item.email : ${item.password}")
                     if(item.email == email && item.password == password){
                         callback(true)
                         return
@@ -59,7 +49,5 @@ class FirebaseServices : FirebaseDataSource {
             override fun onCancelled(error: DatabaseError) { Log.i("FIREBASE", "getUserFirebase : error") }
         })
     }
-
     override suspend fun loginFirebase(email: String, password: String) { }
-
 }

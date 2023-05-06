@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.musictime.usecases.UserUsesCases
+import com.example.musictime.usecases.AuthenticationUsesCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,14 +14,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val userUsesCases: UserUsesCases,
+    private val authenticationUsesCases: AuthenticationUsesCases,
 ): ViewModel()  {
 
     private val _name = MutableLiveData<String>()
     val name : LiveData<String> = _name
-
-    private val _age = MutableLiveData<String>()
-    val age : LiveData<String> = _age
 
     private val _emailSignUp = MutableLiveData<String>()
     val emailSignUp : LiveData<String> = _emailSignUp
@@ -48,13 +45,12 @@ class SignUpViewModel @Inject constructor(
     private fun isValidName(name: String): Boolean = name.length > 2
     private fun isValidEmail(email: String): Boolean = Patterns.EMAIL_ADDRESS.matcher(email).matches()
     private fun isValidPassword(password: String): Boolean = password.length >= 6
-    fun onLoginBackClick() { _signUpEnabled.value = false }
 
     fun requestSignUp(){
         _showProgress.value = true
         _signupSuccess.value = false
         viewModelScope.launch(Dispatchers.IO) {
-            val result = userUsesCases.signUpUserFirebase(_name.value!!, "Default", _emailSignUp.value!!, _passwordSignUp.value!!)
+            val result = authenticationUsesCases.signUpUserFirebase(_name.value!!, "Default", _emailSignUp.value!!, _passwordSignUp.value!!)
             Log.i("FIREBASE", "signUpUserFirebase : $result")
             _signupSuccess.postValue(result)
         }
