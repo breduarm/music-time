@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +24,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.musictime.core.Screen
 import com.example.musictime.theme.colorPrimary
 import com.example.musictime.theme.colorSecondary
 import com.example.theme.R
@@ -64,6 +66,13 @@ fun HomeScreen(
         }
     ) {
         HomeContent(navController = navController, paddingValues = it)
+    }
+
+    if (viewModel.signout){
+        LaunchedEffect(key1 = Unit ){
+            navController.popBackStack()
+            navController.navigate(Screen.Login.route)
+        }
     }
 }
 
